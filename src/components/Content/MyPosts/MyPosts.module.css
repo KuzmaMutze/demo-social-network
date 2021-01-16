@@ -1,0 +1,12 @@
+.wrapper{
+    padding: 10px;
+}
+
+.newPost{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.newPost__button{
+    margin-bottom: 5px;
+}
