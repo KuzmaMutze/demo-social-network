@@ -1,5 +1,13 @@
 
- const contentReducer = (state, action) => {
+let initialState = {
+    postData: [
+        {message:"Hi, how are you?", like: 30},
+        {message:"It's my first post", like: 32}
+    ],
+    newPostText: "sf"
+};
+
+ const contentReducer = (state = initialState, action) => {
 
     
         if (action.type === 'ADD-POST') {
@@ -21,14 +29,13 @@
 };
 
 export const addPostActionCreater = () => ({
-     
     type: 'ADD-POST'
 });
 
 export const updatePostTextActionCreater = (text) => {
-return {
-    type: 'UPDATE-NEW-POST-TEXT', newText: text
-};
+    return {
+        type: 'UPDATE-NEW-POST-TEXT', newText: text
+    };
 };
 
 export default contentReducer;

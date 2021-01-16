@@ -7,8 +7,7 @@ import App from './App';
 
 
 
-let rerenderEntireTree = () => {
-
+let rerenderEntireTree = (state) => {
   ReactDOM.render(
     <React.StrictMode>
       
@@ -22,7 +21,10 @@ let rerenderEntireTree = () => {
 
 rerenderEntireTree(store.getState());
 
-store.subscribe(rerenderEntireTree);
+store.subscribe( () => {
+  let state = store.getState();
+  rerenderEntireTree();
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

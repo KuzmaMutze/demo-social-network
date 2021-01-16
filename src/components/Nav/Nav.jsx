@@ -5,7 +5,7 @@ import classes from './Nav.module.css';
 const Nav = (props) => {
     
     let friendElement = props.state.friendsData.map( (friend) => <Friends img={friend.img} name={friend.name} /> );
-
+    
     return (
         <nav className={classes.nav}>
 
