@@ -21,7 +21,7 @@ const App = (props) => {
 					<Route path="/news" component={ () => <News />}/>
 					<Route path="/music" component={ () => <Music />}/>
 					<Route path="/setting" component={ () => <Setting />}/>
-					<Route path="/content" component={ () => <Content dispatch={props.dispatch} contentPage={props.state.contentPage}/>}/>
+					<Route path="/content" component={ () => <Content store={props.store}/>}/>
 				</div>
 			</div>
 		</BrowserRouter>
