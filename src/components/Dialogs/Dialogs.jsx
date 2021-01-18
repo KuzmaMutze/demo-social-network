@@ -1,13 +1,13 @@
-import DialogsItem from './DialogsItem/DialogsItem';
-import Messages from './Messages/Messages';
 import classes from './Dialogs.module.css';
+import DialogsItemContainer from './DialogsItem/DialogsItemContainer';
+import MessagesContainer from './Messages/MessagesContainer';
 
 const Dialogs = (props) => {
 
     return (
         <div className={classes.dialogs}>
-            <DialogsItem dialogsData={props.dialogsPage.dialogsData}/>
-            <Messages dispatch={props.dispatch} newMessageText={props.dialogsPage.newMessageText} messagesData={props.dialogsPage.messagesData}/>
+            <DialogsItemContainer/>
+            <MessagesContainer/>
         </div>
     )
 } 
