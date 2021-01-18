@@ -5,7 +5,8 @@ import MyPosts from './MyPosts';
 
 let mapStateToProps = (state) => {
     return {
-        contentPage: state.contentPage
+        postData: state.contentPage.postData,
+        newPostText: state.contentPage.newPostText
     }
 }
 let mapDispatchToProps = (dispatch) => {

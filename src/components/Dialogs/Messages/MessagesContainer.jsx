@@ -5,7 +5,8 @@ import Messages from "./Messages";
 
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
+        messagesData: state.dialogsPage.messagesData,
+        newMessageText: state.dialogsPage.newMessageText
     }
 }
 let mapDispatchToProps = (dispatch) => {
