@@ -4,7 +4,7 @@ import classes from './Nav.module.css';
 
 const Nav = (props) => {
     
-    let friendElement = props.state.friendsData.map( (friend) => <Friends img={friend.img} name={friend.name} /> );
+    // let friendElement = props.state.friendsData.map( (friend) => <Friends img={friend.img} name={friend.name} /> );
     
     return (
         <nav className={classes.nav}>
@@ -39,13 +39,13 @@ const Nav = (props) => {
                 </NavLink>
             </div>
 
-            <div className={classes.friends}>
+            {/* <div className={classes.friends}>
                 <div className={classes.friends__title}>
                     Friends
                     {friendElement}
                 </div>
                 
-            </div>
+            </div> */}
 
         </nav>
     )

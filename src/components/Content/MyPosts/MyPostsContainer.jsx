@@ -1,24 +1,24 @@
+import { connect } from 'react-redux';
 import {addPostActionCreater, updatePostTextActionCreater} from '../../../redax/content-reducer';
 import MyPosts from './MyPosts';
 
-const MyPostsContainer = (props) => {
-     let state = props.store.getState();
-    debugger
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreater());
-    };
 
-    let onPostChange = (text) => {
-        let action = updatePostTextActionCreater(text);
-        props.store.dispatch(action);
-    };
-
-    return (
-    <MyPosts addPost={addPost} updatePostText={onPostChange} postData={state.contentPage.postData}
-            newPostText={state.contentPage.newPostText}
-    />
-        
-    ) 
+let mapStateToProps = (state) => {
+    return {
+        contentPage: state.contentPage
+    }
 }
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreater());
+        },
+        updatePostText: (text) => {
+            dispatch(updatePostTextActionCreater(text));
+        }
+    }
+}
+
+let MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;
