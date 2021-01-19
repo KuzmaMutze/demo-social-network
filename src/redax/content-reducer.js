@@ -16,12 +16,16 @@ let initialState = {
                 message: state.newPostText,
                 like: 0
             };
-            state.postData.push(newPost);
-            state.newPostText = '';
-            
+            let stateCopy = {...state};
+            stateCopy.postData = [...state.postData];
+            stateCopy.postData.push(newPost);
+            stateCopy.newPostText = '';
+            return stateCopy;
         } else if (action.type == 'UPDATE-NEW-POST-TEXT') {
-            state.newPostText = action.newText;
-            
+            let stateCopy = {...state};
+            stateCopy.postData = [...state.postData];
+            stateCopy.newPostText = action.newText;
+            return stateCopy;
         }
     
 
