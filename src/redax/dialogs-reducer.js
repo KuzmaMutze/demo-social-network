@@ -27,10 +27,16 @@ let initialState = {
             let newMessage = {
                 message: state.newMessageText
             }
-            state.messagesData.push(newMessage);
-            state.newMessageText = '';
+            let stateCopy = {...state};
+            stateCopy.messagesData = [...state.messagesData];
+            stateCopy.messagesData.push(newMessage);
+            stateCopy.newMessageText = '';
+            return stateCopy;
         } else if (action.type == 'UPDATE-NEW-MESSAGE-TEXT') {
-            state.newMessageText = action.newText;
+            let stateCopy = {...state};
+            stateCopy.newMessageText = [...state.newMessageText];
+            stateCopy.newMessageText = action.newText;
+            return stateCopy;
         }    
     return state;
 }

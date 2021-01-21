@@ -2,7 +2,7 @@ import Message from "./Message/Message";
 import classes from "./Messages.module.css";
 import react from "react";
 const Messages = (props) => {
-    
+    debugger
     let messagesElements = props.messagesData.map( message => <Message massage={message.message}/> );
 
     let newMessageElement = react.createRef();
