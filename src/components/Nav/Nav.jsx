@@ -16,6 +16,12 @@ const Nav = (props) => {
             </div>
 
             <div>
+                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/users">
+                    Users
+                </NavLink>
+            </div>
+
+            <div>
                 <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/music">
                     music
                 </NavLink> 
