@@ -4,7 +4,7 @@ import * as axios from "axios";
 import userPhoto from "../../assets/img/1.jpg";
 
 let Users = (props) => {
-    debugger
+    
     if (props.usersPage.length === 0) {
         axios.get("https://social-network.samuraijs.com/api/1.0/users")
             .then(response => {
