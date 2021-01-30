@@ -4,7 +4,8 @@ let initialState = {
         {message:"Hi, how are you?", like: 30},
         {message:"It's my first post", like: 32}
     ],
-    newPostText: "sf"
+    newPostText: "sf",
+    profile: null
 };
 
  const contentReducer = (state = initialState, action) => {
@@ -26,6 +27,8 @@ let initialState = {
             stateCopy.postData = [...state.postData];
             stateCopy.newPostText = action.newText;
             return stateCopy;
+        } else if (action.type == 'SET-USER-PROFILE') {
+            return {...state, profile: action.profile}
         }
     
 
@@ -36,10 +39,7 @@ export const addPostActionCreater = () => ({
     type: 'ADD-POST'
 });
 
-export const updatePostTextActionCreater = (text) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT', newText: text
-    };
-};
+export const updatePostTextActionCreater = (text) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text});
+export const setUserProfile = (profile) => ({type: 'SET-USER-PROFILE', profile});
 
 export default contentReducer;

@@ -2,13 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
-import Content from './components/Content/ContentItem/Content';
 import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
 import Setting from './components/Setting/Setting';
 import Music from './components/Music/Music';
 import {BrowserRouter, Route} from "react-router-dom";
 import UsersContainer from './components/Users/UsersContainer';
+import ContentContainer from './components/Content/ContentContainer';
 
 
 const App = (props) => {
@@ -22,7 +22,7 @@ const App = (props) => {
 					<Route path="/news" component={ () => <News />}/>
 					<Route path="/music" component={ () => <Music />}/>
 					<Route path="/setting" component={ () => <Setting />}/>
-					<Route path="/content" component={ () => <Content/>}/>
+					<Route path="/content" component={ () => <ContentContainer/>}/>
 					<Route path="/users" component={ () => <UsersContainer/>}/>
 				</div>
 			</div>
