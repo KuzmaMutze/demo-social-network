@@ -11,8 +11,22 @@ const Content = (props) => {
             <div><img className={classes.img} src="https://img.freepik.com/free-photo/empty-sea-beach-background_74190-313.jpg?size=626&ext=jpg&ga=GA1.2.1135173464.1609286400"></img></div>
             
             <div>
-                <img src={props.profile.photos.large} alt=""/>
-                ava + description
+                <img src={props.profile.photos.small} alt=""/>
+                
+                <div>
+                    About me: {props.profile.aboutMe}
+                </div>
+                <br/>
+                <div>
+                    My Contacts:
+                    <div>Vk: {props.profile.contacts.vk}</div>
+                    <div>GitHub: {props.profile.contacts.github}</div>
+                </div>
+                <br/>
+                <div>
+                    <div>I find work: {props.profile.lookingForAJob === true ? "Да" : "Нет"}</div>
+                    <div>Description: {props.profile.lookingForAJobDescription}</div>
+                </div>
             </div>
         </div>
     )  
