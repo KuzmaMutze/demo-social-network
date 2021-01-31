@@ -10,7 +10,7 @@ const Nav = (props) => {
         <nav className={classes.nav}>
 
             <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/content">
+                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/profile">
                     Profile
                 </NavLink>
             </div>
