@@ -1,11 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose } from "redux";
+import { getUserProfile } from "../../redax/content-reducer";
 import Content from "./Content";
 import classes from './Content.module.css';
-import { connect } from "react-redux";
-import {getUserProfile} from "../../redax/content-reducer"
-import { withRouter } from "react-router-dom";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
 
 
 class ContentContainer extends React.Component {
@@ -37,5 +36,5 @@ let mapStateToProps = (state) => ({
 export default compose(
     connect(mapStateToProps, {getUserProfile}),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )(ContentContainer);
