@@ -9,6 +9,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import UsersContainer from './components/Users/UsersContainer';
 import ContentContainer from './components/Content/ContentContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 
 
 const App = (props) => {
@@ -18,6 +19,7 @@ const App = (props) => {
 				<HeaderContainer/>
 				<Nav />
 				<div className="app-wrapper-content">
+					<Route path="/login" component={ () => <Login/>}/>
 					<Route exact path="/dialogs" component={ () => <Dialogs />}/>
 					<Route path="/news" component={ () => <News />}/>
 					<Route path="/music" component={ () => <Music />}/>
