@@ -16,7 +16,27 @@ export const usersAPI = {
             .then(response => {
                 return response.data;
             })
+    },
+    follow(userId) {
+        return instance.post(`follow/${userId}`)
+        .then(response => {
+            return response.data;
+        })
+        //////////
+        
+    },
+    unFollow(userId) {
+        return instance.delete(`follow/${userId}`)
+        .then(response => {
+            return response.data;
+        })
+        // -
+        // .then(data => {
+        //     if (data.resultCode == 0) {
+        //      props.unFollow(u.id)
+        //     }
+        // });
     }
-}
+};
     
 
