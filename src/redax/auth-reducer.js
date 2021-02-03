@@ -1,3 +1,5 @@
+import {usersAPI} from "./../api/api";
+
 let initialState = {
     userId: null,
     email: null,
@@ -5,7 +7,7 @@ let initialState = {
     isAuth: false,
     isFetching: true
 };
-debugger
+
  const authReducer = (state = initialState, action) => {
 
         if (action.type === 'SET-USER-DATA') {
@@ -18,9 +20,19 @@ debugger
     return state;
 };
 
-
-
 export const setUserData = (userId, email, login) => ({type: 'SET-USER-DATA', data:{email, userId, login}});
+
+export const getAuth = () => {
+    return (dispatch) => {
+        usersAPI.getLogin()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {email, id, login} = data.data;
+                dispatch(setUserData(email, id, login));
+            }
+        })
+    }
+}
 
 
 export default authReducer;

@@ -7,29 +7,11 @@ import Preloader from "../common/Preloader/Preloader.jsx";
 class UsersAPIComponent extends React.Component {
 
     componentDidMount() {
-
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-
-        // this.props.setToggleIsFetching(true);
-
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //             this.props.setToggleIsFetching(false);
-        //             this.props.setUsers(data.items);
-        //             this.props.setTotalUsersCount(data.totalCount);
-        //         });
     }
 
     onPageChanged = (pageNumber) => {
-
         this.props.getUsers(pageNumber, this.props.pageSize);
-
-        // this.props.setToggleIsFetching(true);
-        // this.props.setCurrentPage(pageNumber)
-        
-        // usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-        //             this.props.setToggleIsFetching(false);
-        //             this.props.setUsers(data.items);
-        //         });
     }
 
     render() {
@@ -61,28 +43,6 @@ let mapStateToProps = (state) => {
     }
 };
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId));
-//         },
-//         unFollow: (userId) => {
-//             dispatch(unFollowAC(userId));
-//         },
-//         setUsers: (userId) => {
-//             dispatch(setUsersAC(userId));
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageAC(pageNumber))
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount))
-//         },
-//         setToggleIsFetching: (isFetching) => {
-//             dispatch(setToggleIsFetchingAC(isFetching));
-//         }
-//     }
-// }
 
 let UsersContainer = connect(mapStateToProps, {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers})
           (UsersAPIComponent); 
