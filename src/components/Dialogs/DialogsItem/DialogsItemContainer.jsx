@@ -1,13 +1,16 @@
 import { connect } from 'react-redux';
 import DialogsItem from './DialogsItem';
+import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
+import { compose } from 'redux';
 
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     }
 }
 
-const DialogsItemContainer = connect(mapStateToProps)(DialogsItem);
 
-export default DialogsItemContainer;
+export default compose(
+    connect(mapStateToProps),
+    withAuthRedirect
+)(DialogsItem);

@@ -4,6 +4,9 @@ import {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers} from
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader.jsx";
 import { Redirect } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
+
 
 class UsersAPIComponent extends React.Component {
 
@@ -41,12 +44,14 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
     }
 };
 
 
-let UsersContainer = connect(mapStateToProps, {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers})
-          (UsersAPIComponent); 
 
-export default UsersContainer;
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers}),
+    
+)(UsersAPIComponent);;

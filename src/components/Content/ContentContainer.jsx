@@ -3,7 +3,9 @@ import Content from "./Content";
 import classes from './Content.module.css';
 import { connect } from "react-redux";
 import {getUserProfile} from "../../redax/content-reducer"
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
 class ContentContainer extends React.Component {
@@ -17,7 +19,6 @@ class ContentContainer extends React.Component {
     }
 
     render() {
-        if (this.props.isAuth === false) return <Redirect to={"/login"}></Redirect>;
         return (
             <div className={classes.content}>
                 <Content {...this.props} profile={this.props.profile}/>
@@ -26,11 +27,15 @@ class ContentContainer extends React.Component {
     }
 }
 
+
 let mapStateToProps = (state) => ({
     profile: state.contentPage.profile,
-    isAuth: state.auth.isAuth
 })
 
-let WithUrlDataContainerComponent = withRouter(ContentContainer);
 
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ContentContainer);
