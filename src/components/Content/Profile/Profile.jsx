@@ -13,7 +13,7 @@ const Content = (props) => {
             
             <div>
                 <img src={props.profile.photos.small} alt=""/>
-                <ProfileStatus status={"Hello mt friends"}/>
+                <ProfileStatus status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                 <div>
                     About me: {props.profile.aboutMe}
                 </div>

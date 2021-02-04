@@ -6,7 +6,8 @@ let initialState = {
         {message:"It's my first post", like: 32}
     ],
     newPostText: "sf",
-    profile: null
+    profile: null,
+    status: ""
 };
 
  const contentReducer = (state = initialState, action) => {
@@ -30,6 +31,8 @@ let initialState = {
             return stateCopy;
         } else if (action.type == 'SET-USER-PROFILE') {
             return {...state, profile: action.profile}
+        }else if (action.type == 'SET-STATUS') {
+            return {...state, status: action.status}
         }
     
 
@@ -42,6 +45,7 @@ export const addPostActionCreater = () => ({
 
 export const updatePostTextActionCreater = (text) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text});
 export const setUserProfile = (profile) => ({type: 'SET-USER-PROFILE', profile});
+export const setUserStatus = (status) => ({type: 'SET-STATUS', status});
 
 export const getUserProfile = (userId) => {
     return (dispatch) => {
@@ -52,5 +56,32 @@ export const getUserProfile = (userId) => {
         
     }
 }
+
+export const getStatusProfile = (userId) => {
+    return (dispatch) => {
+        usersAPI.getStatus(userId)
+        .then(data => {
+            
+
+            dispatch(setUserStatus(data));  
+        });
+        
+    }
+}
+
+export const updateStatusProfile = (status) => {
+    
+    return (dispatch) => {
+        usersAPI.updateStatus(status)
+        .then(data => {
+            
+            if (data.resultCode === 0){
+                dispatch(setUserStatus(status));  
+            }
+        });
+        
+    }
+}
+
 
 export default contentReducer;

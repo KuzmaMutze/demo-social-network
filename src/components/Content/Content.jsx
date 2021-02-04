@@ -4,7 +4,7 @@ import Profile from './Profile/Profile';
 let Content = (props) => {
     return (
         <div>
-            <Profile profile={props.profile}/>
+            <Profile profile={props.profile} status={props.status} updateStatusProfile={props.updateStatusProfile}/>
             <MyPostsContainer />
         </div>
     )
