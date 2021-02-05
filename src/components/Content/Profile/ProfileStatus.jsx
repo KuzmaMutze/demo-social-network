@@ -24,9 +24,20 @@ class ProfileStatus extends React.Component {
     }
 
     onStatusChange = (e) => {
+        
         this.setState({
             status: e.currentTarget.value.log
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        debugger
+        if (this.props.status !== prevState.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+        console.log("did updata");
     }
 
     render () {

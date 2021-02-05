@@ -61,8 +61,6 @@ export const getStatusProfile = (userId) => {
     return (dispatch) => {
         usersAPI.getStatus(userId)
         .then(data => {
-            
-
             dispatch(setUserStatus(data));  
         });
         
