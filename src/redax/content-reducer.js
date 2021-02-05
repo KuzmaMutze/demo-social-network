@@ -14,16 +14,10 @@ let initialState = {
 
     
         if (action.type === 'ADD-POST') {
-            let newPost = {
-                id: 5,
-                message: state.newPostText,
-                like: 0
-            };
-            let stateCopy = {...state};
-            stateCopy.postData = [...state.postData];
-            stateCopy.postData.push(newPost);
-            stateCopy.newPostText = '';
-            return stateCopy;
+            return {
+                ...state,
+                postData: [...state.postData, {message: action.values, like: 1}]
+            }
         } else if (action.type == 'UPDATE-NEW-POST-TEXT') {
             let stateCopy = {...state};
             stateCopy.postData = [...state.postData];
@@ -39,8 +33,8 @@ let initialState = {
     return state;
 };
 
-export const addPostActionCreater = () => ({
-    type: 'ADD-POST'
+export const addPostActionCreater = (values) => ({
+    type: 'ADD-POST', values
 });
 
 export const updatePostTextActionCreater = (text) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text});

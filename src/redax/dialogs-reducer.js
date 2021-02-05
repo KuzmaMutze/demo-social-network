@@ -18,40 +18,22 @@ let initialState = {
         {id:6, name:"Sasha"},
       ],
 
-    newMessageText: "s"
+    
 };
  
- 
- const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action) => {
         if (action.type === 'ADD-MESSAGE') {
-            let newMessage = {
-                message: state.newMessageText
+            let body = action.values;
+            return {
+                ...state,
+                messagesData: [...state.messagesData, {message: body}]
             }
-            let stateCopy = {...state};
-            stateCopy.messagesData = [...state.messagesData];
-            stateCopy.messagesData.push(newMessage);
-            stateCopy.newMessageText = '';
-            return stateCopy;
-        } else if (action.type == 'UPDATE-NEW-MESSAGE-TEXT') {
-            let stateCopy = {...state};
-            stateCopy.newMessageText = [...state.newMessageText];
-            stateCopy.newMessageText = action.newText;
-            return stateCopy;
-        }    
+        };
     return state;
 }
 
-
-export const addMessageActionCreater = () => ({
-     
-    type: 'ADD-MESSAGE'
+export const addMessageActionCreater = (values) => ({
+    type: 'ADD-MESSAGE', values
 });
-
-export const updateMessageTextActionCreater = (text) => {
-return {
-    type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text
-};
-};
-
 
 export default dialogsReducer;

@@ -2,7 +2,7 @@ import React from "react";
 
 class ProfileStatus extends React.Component {
 
-     state = {
+    state = {
         editMode: false,
         status: this.props.status
         

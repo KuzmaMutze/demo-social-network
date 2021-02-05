@@ -1,31 +1,33 @@
 import Message from "./Message/Message";
 import classes from "./Messages.module.css";
-import react from "react";
+import {Field, reduxForm} from "redux-form"
+
 const Messages = (props) => {
-    debugger
+
     let messagesElements = props.messagesData.map( message => <Message massage={message.message}/> );
-
-    let newMessageElement = react.createRef();
     
-    let addMessage = () => {
-        // let message = newMessageElement.current.value;
-        props.addMessage();
+    let addMessage = (values) => {
+        props.addMessage(values.newMessageElement);
     };
 
-    let onMessageChange = () => {
-        let message = newMessageElement.current.value;
-        props.onMessageChange(message);
-    };
-    
     return (
         <div className={classes.messages}>
             {messagesElements}
-            <textarea onChange={onMessageChange} value={props.newMessageText} ref={newMessageElement} cols="30" rows="10"/>
-            <button onClick={addMessage}>Send</button>
+            <AddMesseageFormRedux onSubmit={addMessage}/>
         </div>
         
     )
-    
 }
+
+const AddMessageForm = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <Field component={"textarea"} name="newMessageElement" placeholder="Enter your messeage"/>
+        <button>Send</button>
+    </form>
+}
+
+const AddMesseageFormRedux = reduxForm({
+    form: "addMessageForm"
+})(AddMessageForm)
 
 export default Messages; 

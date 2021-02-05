@@ -1,7 +1,7 @@
 import {addMessageActionCreater, updateMessageTextActionCreater} from "../../../redax/dialogs-reducer";
 import { connect } from "react-redux";
 import Messages from "./Messages";
-
+import { compose } from "redux";
 
 let mapStateToProps = (state) => {
     return {
@@ -11,15 +11,13 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        addMessage: () => {
-            dispatch(addMessageActionCreater());
+        addMessage: (values) => {
+            dispatch(addMessageActionCreater(values));
         },
-        onMessageChange: (message) => {
-            dispatch(updateMessageTextActionCreater(message));
-        }
     }
 }
 
-let MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
-
-export default MessagesContainer; 
+export default compose(
+    
+    connect(mapStateToProps, mapDispatchToProps)
+)(Messages);
