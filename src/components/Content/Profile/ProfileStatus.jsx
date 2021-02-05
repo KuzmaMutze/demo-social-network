@@ -5,15 +5,12 @@ class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         status: this.props.status
-        
     }
 
     activeteEditMode = () => {
         this.setState({
             editMode: true
         })
-        
-
     }
 
     disableEditMode = () => {
@@ -24,20 +21,19 @@ class ProfileStatus extends React.Component {
     }
 
     onStatusChange = (e) => {
-        
+        debugger
         this.setState({
-            status: e.currentTarget.value.log
+            status: e.currentTarget.value
         });
     }
 
     componentDidUpdate(prevProps, prevState) {
         debugger
-        if (this.props.status !== prevState.status) {
+        if ( prevState.status !== this.props.status ) {
             this.setState({
                 status: this.props.status
             })
         }
-        console.log("did updata");
     }
 
     render () {
