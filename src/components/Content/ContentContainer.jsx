@@ -12,7 +12,7 @@ class ContentContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 14556;
+            userId = this.props.authUserId;
         }
         this.props.getUserProfile(userId);
         this.props.getStatusProfile(userId);
@@ -31,13 +31,13 @@ class ContentContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.contentPage.profile,
-    status: state.contentPage.status
+    status: state.contentPage.status,
+    authUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
-
 
 
 export default compose(
     connect(mapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile}),
     withRouter,
-    // withAuthRedirect
 )(ContentContainer);

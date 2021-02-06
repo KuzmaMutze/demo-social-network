@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import {usersAPI} from "./../api/api";
 
 let initialState = {
@@ -40,6 +41,10 @@ export const login = (email, password, rememberMe) => {
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(getAuth())
+            } else {
+                debugger
+                let message = data.messages.length > 0 ? data.messages[0] : "some reror"
+                dispatch(stopSubmit("login", {_error: message}))
             }
         })
     }

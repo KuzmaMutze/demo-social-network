@@ -16,6 +16,9 @@ const LoginForm = (props) => {
             <div><Field placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
             <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
             <div><Field component={"input"} name={"rememberMe"} type="checkbox"/></div>
+            {
+                props.error ? <div>{props.error}</div> : ""
+            }
             <div><button>Sing in</button></div>
         </form>
     </div>
