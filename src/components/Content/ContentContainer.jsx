@@ -29,15 +29,15 @@ class ContentContainer extends React.Component {
 }
 
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state) => ({ 
     profile: state.contentPage.profile,
     status: state.contentPage.status,
     authUserId: state.auth.userId,
     isAuth: state.auth.isAuth
 })
 
-
 export default compose(
-    connect(mapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile}),
     withRouter,
+    connect(mapStateToProps, {getUserProfile, getStatusProfile, updateStatusProfile}),
+    
 )(ContentContainer);

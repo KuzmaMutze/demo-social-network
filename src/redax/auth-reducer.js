@@ -21,19 +21,17 @@ let initialState = {
     return state;
 };
 
-export const setUserData = (userId, email, login, isAuth) => ({type: 'SET-USER-DATA', data:{email, userId, login, isAuth}});
+export const setUserData = (userId, email, login, isAuth) => ({type: 'SET-USER-DATA', data:{userId, email, login, isAuth}});
 
-export const getAuth = () => {
-    return (dispatch) => {
-        usersAPI.getLogin()
+export const getAuth = () => (dispatch) => {
+        return usersAPI.getLogin()
         .then(data => {
             if (data.resultCode === 0) {
-                let {email, id, login} = data.data;
-                dispatch(setUserData(email, id, login, true));
+                let {id, email, login} = data.data;
+                dispatch(setUserData(id, email, login, true));
             }
         })
     }
-}
 
 export const login = (email, password, rememberMe) => {
     return (dispatch) => {
@@ -43,7 +41,7 @@ export const login = (email, password, rememberMe) => {
                 dispatch(getAuth())
             } else {
                 debugger
-                let message = data.messages.length > 0 ? data.messages[0] : "some reror"
+                let message = data.messages.length > 0 ? data.messages[0] : "some error"
                 dispatch(stopSubmit("login", {_error: message}))
             }
         })
