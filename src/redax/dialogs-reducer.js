@@ -1,3 +1,4 @@
+const ADD_MESSAGE = "samurai-network/dialogs/ADD_MESSAGE";
 
 let initialState = {
     messagesData: [
@@ -22,7 +23,7 @@ let initialState = {
 };
  
 const dialogsReducer = (state = initialState, action) => {
-        if (action.type === 'ADD-MESSAGE') {
+        if (action.type === ADD_MESSAGE) {
             let body = action.values;
             return {
                 ...state,
@@ -32,8 +33,6 @@ const dialogsReducer = (state = initialState, action) => {
     return state;
 }
 
-export const addMessageActionCreater = (values) => ({
-    type: 'ADD-MESSAGE', values
-});
+export const addMessageActionCreater = (values) => ({type: ADD_MESSAGE, values});
 
 export default dialogsReducer;

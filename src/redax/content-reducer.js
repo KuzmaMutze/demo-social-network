@@ -1,5 +1,11 @@
 import {usersAPI} from "./../api/api";
 
+const ADD_POST = "samurai-network/content/ADD_POST";
+const UPDATE_NEW_POST_TEXT = "samurai-network/content/UPDATE_NEW_POST_TEXT";
+const SET_USER_PROFILE = "samurai-network/content/SET_USER_PROFILE";
+const SET_STATUS = "samurai-network/content/SET_STATUS";
+
+
 let initialState = {
     postData: [
         {message:"Hi, how are you?", like: 30},
@@ -11,35 +17,28 @@ let initialState = {
 };
 
  const contentReducer = (state = initialState, action) => {
-
-    
         if (action.type === 'ADD-POST') {
             return {
                 ...state,
                 postData: [...state.postData, {message: action.values, like: 1}]
             }
-        } else if (action.type == 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type == UPDATE_NEW_POST_TEXT) {
             let stateCopy = {...state};
             stateCopy.postData = [...state.postData];
             stateCopy.newPostText = action.newText;
             return stateCopy;
-        } else if (action.type == 'SET-USER-PROFILE') {
+        } else if (action.type == SET_USER_PROFILE) {
             return {...state, profile: action.profile}
-        }else if (action.type == 'SET-STATUS') {
+        }else if (action.type == SET_STATUS) {
             return {...state, status: action.status}
         }
-    
-
     return state;
 };
 
-export const addPostActionCreater = (values) => ({
-    type: 'ADD-POST', values
-});
-
-export const updatePostTextActionCreater = (text) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text});
-export const setUserProfile = (profile) => ({type: 'SET-USER-PROFILE', profile});
-export const setUserStatus = (status) => ({type: 'SET-STATUS', status});
+export const addPostActionCreater = (values) => ({type: ADD_POST, values});
+export const updatePostTextActionCreater = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const setUserStatus = (status) => ({type: SET_STATUS, status});
 
 export const getUserProfile = (userId) => {
     return (dispatch) => {

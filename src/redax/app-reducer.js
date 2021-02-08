@@ -1,6 +1,6 @@
 import { getAuth } from './auth-reducer';
 
-
+const SET_INITIALZED = "samurai-network/auth/SET_INITIALZED"
 
 let initialState = {
     initialzed: false,
@@ -8,7 +8,7 @@ let initialState = {
 }
 
 const aapReducer = (state = initialState, action) => {
-    if (action.type === "SET-INITIALZED") {
+    if (action.type === SET_INITIALZED) {
         return {
             ...state,
             initialzed: true
@@ -18,11 +18,12 @@ const aapReducer = (state = initialState, action) => {
     return state;
 }
 
-let setInitialzedSuccess = () => ({type: "SET-INITIALZED"})
+let setInitialzedSuccess = () => ({type: SET_INITIALZED})
 
 export let initializeApp = () => (dispatch) => {
     let promise = dispatch(getAuth());
-    Promise.all([promise]).then(() => {
+    Promise.all([promise])
+    .then(() => {
         dispatch(setInitialzedSuccess())
     })
 }
