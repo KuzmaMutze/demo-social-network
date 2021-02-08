@@ -6,3 +6,16 @@
 .selectPage {
     font-weight: bold;
 }
+
+.paginator{
+    margin: 10px;
+}
+
+.pageNumber {
+    margin: 0 10px;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    border: 1px solid black;
+    cursor: pointer;
+}

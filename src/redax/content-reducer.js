@@ -17,7 +17,7 @@ let initialState = {
 };
 
  const contentReducer = (state = initialState, action) => {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             return {
                 ...state,
                 postData: [...state.postData, {message: action.values, like: 1}]

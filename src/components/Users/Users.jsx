@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState }  from "react";
 import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.jpg";
 import { NavLink } from "react-router-dom";
@@ -13,13 +13,28 @@ const Users = (props) => {
     for (let i=1; i <= pagesCount; i++) {
         pages.push(i);
     }
-        
+      
+    
+    let portionCount = Math.ceil(pagesCount / props.pageSize);
+    let [portionNumber, setPortionNumber] = useState(1);
+    let leftPortionPageNumber = (portionNumber - 1) * props.pageSize + 1;
+    let rightPortionPageNumber = props.pageSize * portionNumber;
 
     return <div>
-        <div>
-            {pages.map( p => {
-                return <span onClick={ (e) => { props.onPageChanged(p) }} className={props.currentPage === p && classes.selectPage}>{p}</span>
-            })}
+        <div className={classes.paginator}>
+            {
+                portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
+            }
+
+            {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+            .map((p) => {
+                return <span key={p} onClick={ (e) => { props.onPageChanged(p) }} className={`${props.currentPage === p && classes.selectPage} ${classes.pageNumber}`}>{p}</span>
+            })
+            }
+
+            {
+                portionCount > portionNumber && <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>
+            }
         </div>
         {
         props.usersPage.map(u => <div key={u.id}>
