@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import {usersAPI} from "./../api/api";
 
 const ADD_POST = "samurai-network/content/ADD_POST";
@@ -74,9 +75,22 @@ export const updateStatusProfile = (status) => {
 
 export const savePhoto = (photos) => async (dispatch) => {
     let data = await usersAPI.savePhoto(photos);
-    debugger
+
     if (data.resultCode === 0){
         dispatch(savePhotoSuccses(data.data.photos));  
     }
+}
+
+export const saveProfileInfo = (profileInfo) => async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+    let data = await usersAPI.setProfileInfo(profileInfo);
+    if (data.resultCode === 0){
+        dispatch(getUserProfile(userId));  
+    }else {
+        let message = data.messages.length > 0 ? data.messages[0] : "some error"
+        dispatch(stopSubmit("edit-profile", {_error: message}));
+        return Promise.reject(data.messages[0])
+    }
+
 }
 export default contentReducer;

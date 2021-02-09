@@ -69,11 +69,16 @@ export const usersAPI = {
                 return response.data;
             }); 
     },
+    setProfileInfo(profileInfo) {
+        return instance.put(`profile/`, profileInfo)
+        .then(response => {
+            return response.data;
+        }); 
+    },
     // status
     getStatus(userId) {
         return instance.get(`profile/status/${userId}`)
             .then(response => {
-                
                 return response.data;
             }); 
     },

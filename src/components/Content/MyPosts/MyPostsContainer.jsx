@@ -12,7 +12,6 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         addPost: (values) => {
-            debugger
             dispatch(addPostActionCreater(values));
         }
     }

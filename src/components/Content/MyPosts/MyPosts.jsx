@@ -16,7 +16,7 @@ const MyPosts = (props) => {
 
     return (
         <div className={classes.wrapper}>
-            my post
+            My post
             <div className={classes.newPost}>
                 <ReduxFormAddPost onSubmit={onAddPost}/>
             </div>
