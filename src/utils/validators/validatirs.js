@@ -1,6 +1,6 @@
 export const required = value => {
     if (value) return undefined;
-    return "error message";
+    return "Поле не должны быть пустыми";
 }
 
 export const maxLenghtCreacter = (maxLenght) => (value) => {
