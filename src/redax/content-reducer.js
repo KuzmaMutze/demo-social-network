@@ -4,6 +4,7 @@ const ADD_POST = "samurai-network/content/ADD_POST";
 const UPDATE_NEW_POST_TEXT = "samurai-network/content/UPDATE_NEW_POST_TEXT";
 const SET_USER_PROFILE = "samurai-network/content/SET_USER_PROFILE";
 const SET_STATUS = "samurai-network/content/SET_STATUS";
+const SAVE_PHOTO = "samurai-network/content/SAVE_PHOTO";
 
 
 let initialState = {
@@ -31,6 +32,13 @@ let initialState = {
             return {...state, profile: action.profile}
         }else if (action.type == SET_STATUS) {
             return {...state, status: action.status}
+        }else if (action.type == SAVE_PHOTO) {
+            debugger
+            return {...state,
+            profile: {...state.profile,
+                photos: action.photos}
+        }
+        
         }
     return state;
 };
@@ -39,40 +47,36 @@ export const addPostActionCreater = (values) => ({type: ADD_POST, values});
 export const updatePostTextActionCreater = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setUserStatus = (status) => ({type: SET_STATUS, status});
+export const savePhotoSuccses = (photos) => ({type: SAVE_PHOTO, photos});
 
 export const getUserProfile = (userId) => {
-    return (dispatch) => {
-        usersAPI.getProfile(userId)
-        .then(data => {
+    return async (dispatch) => {
+        let data = await usersAPI.getProfile(userId)
             dispatch(setUserProfile(data));  
-        });
-        
     }
 }
 
 export const getStatusProfile = (userId) => {
-    return (dispatch) => {
-        usersAPI.getStatus(userId)
-        .then(data => {
+    return async (dispatch) => {
+        let data = await usersAPI.getStatus(userId)
             dispatch(setUserStatus(data));  
-        });
-        
     }
 }
 
 export const updateStatusProfile = (status) => {
-    
-    return (dispatch) => {
-        usersAPI.updateStatus(status)
-        .then(data => {
-            
+    return async (dispatch) => {
+        let data = await usersAPI.updateStatus(status)
             if (data.resultCode === 0){
                 dispatch(setUserStatus(status));  
             }
-        });
-        
     }
 }
 
-
+export const savePhoto = (photos) => async (dispatch) => {
+    let data = await usersAPI.savePhoto(photos);
+    debugger
+    if (data.resultCode === 0){
+        dispatch(savePhotoSuccses(data.data.photos));  
+    }
+}
 export default contentReducer;
