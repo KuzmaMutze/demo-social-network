@@ -2,6 +2,7 @@ import { stopSubmit } from "redux-form";
 import {usersAPI} from "./../api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA";
+const SET_CAPTCHA = "samurai-network/auth/SET_CAPTCHA";
 
 let initialState = {
     userId: null,
@@ -9,6 +10,7 @@ let initialState = {
     login: null,
     isAuth: false,
     isFetching: true,
+    captchaUrl: null
 };
 
  const authReducer = (state = initialState, action) => {
@@ -18,11 +20,17 @@ let initialState = {
                 ...state,
                 ...action.data,
             }
+        } else if (action.type === SET_CAPTCHA) {
+            return {
+                ...state,
+                captchaUrl: action.captcha
+            }
         }
     return state;
 };
 
 export const setUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, data:{userId, email, login, isAuth}});
+export const getCuptcha = (captcha) => ({type: SET_CAPTCHA, captcha});
 
 export const getAuth = () => async (dispatch) => {
         let data = await usersAPI.getLogin()
@@ -32,12 +40,16 @@ export const getAuth = () => async (dispatch) => {
             }
     }
 
-export const login = (email, password, rememberMe) => {
+export const login = (email, password, rememberMe, captcha) => {
     return async (dispatch) => {
-        let data = await usersAPI.login(email, password, rememberMe)
+        let data = await usersAPI.login(email, password, rememberMe, captcha)
             if (data.resultCode === 0) {
                 dispatch(getAuth())
-            } else {
+            } else if (data.resultCode === 10){
+                dispatch(getCuptchaUrl())
+                let message = data.messages.length > 0 ? data.messages[0] : "some error"
+                dispatch(stopSubmit("login", {_error: message}))                             //fix
+            } else{
                 let message = data.messages.length > 0 ? data.messages[0] : "some error"
                 dispatch(stopSubmit("login", {_error: message}))
             }
@@ -54,4 +66,11 @@ export const logout = () => {
     }
 }
 
+export const getCuptchaUrl = () => {
+    return async (dispatch) => {
+        let data = await usersAPI.getCaptcha()
+        let captchaUrl = data.url;
+        dispatch(getCuptcha(captchaUrl))
+    }
+}
 export default authReducer;

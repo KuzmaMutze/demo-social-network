@@ -5,7 +5,5 @@ export const required = value => {
 
 export const maxLenghtCreacter = (maxLenght) => (value) => {
     if (value.length > maxLenght) return `Max lenght is ${maxLenght} symvols`;
-debugger
     return undefined;
-    
 }
