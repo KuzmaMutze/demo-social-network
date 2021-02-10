@@ -1,18 +1,32 @@
 
 .nav{
     grid-area: n;
-    background: blue;
+    background: rgb(255,255,255);
+    background: linear-gradient(to right bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.3));
+    border-radius:2rem;
+    
   }
   
+.items{
+  margin-top:2rem;
+  margin-left: 2rem;
+}
+
 .button{
   font-size: 19px;
   color:white;
   outline: none;
   text-decoration: none;
+  color: #000;
+}
+
+.button:hover{
+  color:#658ec6;
+  transition: all 0.3s;
 }
 
 .active{
-  color: gold;
+  font-weight: bold;
 }
 
 .friends{

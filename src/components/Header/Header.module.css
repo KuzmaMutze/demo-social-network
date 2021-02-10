@@ -1,6 +1,8 @@
 .header {
     grid-area: h;
-    background: green;
+    background: rgb(255,255,255);
+    background: linear-gradient(to right bottom, rgba(255,255,255,0.8), rgba(255, 255, 255, 0.158));
+    border-radius:2rem;
 }
 
 .img {
@@ -17,3 +19,14 @@
     color: white;
     text-decoration: none;
 }
+
+
+  .logout {
+    background: rgb(255,255,255);
+    background: linear-gradient(to right bottom, #65dfc9, #6cdbed);
+    border: none;
+    border-radius:1rem;
+    padding:5px 15px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }

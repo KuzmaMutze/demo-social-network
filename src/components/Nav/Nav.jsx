@@ -9,40 +9,42 @@ const Nav = (props) => {
     return (
         <nav className={classes.nav}>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/profile">
-                    Profile
-                </NavLink>
-            </div>
+            <div className={classes.items}>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/profile">
+                        Profile
+                    </NavLink>
+                </div>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/users">
-                    Users
-                </NavLink>
-            </div>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/users">
+                        Users
+                    </NavLink>
+                </div>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/music">
-                    music
-                </NavLink> 
-            </div>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/music">
+                        Music
+                    </NavLink> 
+                </div>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/news">
-                    news
-                </NavLink>
-            </div>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/news">
+                        News
+                    </NavLink>
+                </div>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/dialogs">
-                    messages
-                </NavLink>
-            </div>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/dialogs">
+                        Messages
+                    </NavLink>
+                </div>
 
-            <div>
-                <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/setting">
-                    setting
-                </NavLink>
+                <div>
+                    <NavLink activeClassName={classes.active} className={`${classes.button}`} to="/setting">
+                        Setting
+                    </NavLink>
+                </div>
             </div>
 
             {/* <div className={classes.friends}>

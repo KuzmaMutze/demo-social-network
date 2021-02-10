@@ -5,6 +5,7 @@ import { required, maxLenghtCreacter } from '../../utils/validators/validatirs';
 import { connect } from "react-redux";
 import {login} from "../../redax/auth-reducer";
 import { Redirect } from "react-router-dom";
+import classes from "./Login.module.css";
 
 
 let maxLenghtCreacter15 = maxLenghtCreacter(50);
@@ -12,18 +13,18 @@ const LoginForm = (props) => {
     
     return <div>
         <form onSubmit={props.handleSubmit}>
-            <div><Field placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
-            <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
-            <div><Field component={"input"} name={"rememberMe"} type="checkbox"/></div>
+            <div><Field className={classes.formLogin} placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
+            <div><Field className={classes.formLogin} placeholder={"Password"} name={"password"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
+            <div><Field className={classes.formLogin} component={"input"} name={"rememberMe"} type="checkbox"/> Remember me</div>
             {
                 props.error ? <div>{props.error}</div> : ""
             }
             
-            <div><button>Sing in</button></div>
+            <div><button className={classes.buttonLogin}>Sing in</button></div>
             {
                 props.captchaUrl && <div>
                     <img src={props.captchaUrl} alt="captcha"/>
-                    <Field placeholder="Captcha" name="captcha" component={Input} validate={[required]}/>
+                    <Field className={classes.formLogin} placeholder="Captcha" name="captcha" component={Input} validate={[required]}/>
                 </div>
             }
             
@@ -43,7 +44,7 @@ const Login = (props) => {
         return <Redirect to={"/profile"}/>
     }
 
-    return <div>
+    return <div  className={classes.login}>
         <h1>Login</h1>
         <ReduxLoginForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
     </div>

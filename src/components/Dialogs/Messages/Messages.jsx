@@ -13,7 +13,7 @@ const Messages = (props) => {
     };
 
     return (
-        <div className={classes.messages}>
+        <div className={classes.message}>
             {messagesElements}
             <AddMesseageFormRedux onSubmit={addMessage}/>
         </div>
@@ -25,8 +25,8 @@ let maxLenghtCreacter20 = maxLenghtCreacter(20);
 
 const AddMessageForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
-        <Field component={Textarea} name="newMessageElement" placeholder="Enter your messeage" validate={[required, maxLenghtCreacter20]}/>
-        <button>Send</button>
+        <Field className={classes.messages} component={Textarea} name="newMessageElement" placeholder="Enter your messeage" validate={[required, maxLenghtCreacter20]}/>
+        <button className={classes.button}>Send</button>
     </form>
 }
 

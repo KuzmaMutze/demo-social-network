@@ -22,7 +22,7 @@ let initialState = {
         if (action.type === ADD_POST) {
             return {
                 ...state,
-                postData: [...state.postData, {message: action.values, like: 1}]
+                postData: [...state.postData, {message: action.values, like: 0}]
             }
         } else if (action.type == UPDATE_NEW_POST_TEXT) {
             let stateCopy = {...state};

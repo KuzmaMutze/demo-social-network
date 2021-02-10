@@ -20,10 +20,10 @@ const Users = (props) => {
     let leftPortionPageNumber = (portionNumber - 1) * props.pageSize + 1;
     let rightPortionPageNumber = props.pageSize * portionNumber;
 
-    return <div>
+    return <div className={classes.users}>
         <div className={classes.paginator}>
             {
-                portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
+                portionNumber > 1 && <button className={classes.buttonDefult} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
             }
 
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -33,7 +33,7 @@ const Users = (props) => {
             }
 
             {
-                portionCount > portionNumber && <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>
+                portionCount > portionNumber && <button className={classes.buttonDefult} onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>
             }
         </div>
         {
@@ -45,18 +45,19 @@ const Users = (props) => {
                         <img src={u.photos.small != null ? u.photos.small : userPhoto} className={classes.userPhoto} alt="img" />
                     </NavLink>
                 </div>
-                <div>
-                    {u.followed
-                        ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.unFollow(u.id) }}>unFollow</button>
-                        : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.follow(u.id) }}>Follow</button>}
-                </div>
-            </span>
-
-            <span>
                 <span>
                     <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
+                <div>
+                    {u.followed
+                        ? <button className={classes.button} disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.unFollow(u.id) }}>unFollow</button>
+                        : <button className={classes.button} disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.follow(u.id) }}>Follow</button>}
+                </div>
+            </span>
+
+            <span>
+                
                 <span>
                     {/* <div>{"u.location.country"}</div>
                     <div>{"u.location.city"}</div> */}

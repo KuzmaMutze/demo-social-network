@@ -8,7 +8,7 @@ const Post = (props) => {
                 <span className={classes.writing}>
                     {props.message}
                 </span>
-                <a className={classes.like} href="#">like {props.like}</a>
+                <a className={classes.like} href="#">Like {props.like}</a>
             </div>
         </div>
     )  

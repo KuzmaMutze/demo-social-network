@@ -1,7 +1,12 @@
+.users{
+    margin: 30px 30px;
+}
+
 .userPhoto{
     width: 90px;
     height: 90px;
     border-radius: 100%;
+    margin: 20px 0 0 0;
 }
 
 .selectPage {
@@ -17,6 +22,40 @@
     display: inline-block;
     width: 20px;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #658ec6;
     cursor: pointer;
 }
+
+.buttonDefult {
+    background: rgb(255,255,255);
+    background: linear-gradient(to right bottom, #65dfc9, #6cdbed);
+    border: none;
+    border-radius:1rem;
+    padding:10px 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.button {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: rgb(255,255,255);
+    background: linear-gradient(to right bottom, #65dfc9, #6cdbed);
+    border: none;
+    border-radius:1rem;
+    padding:5px 15px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  .button:hover, .button:focus, .button:active {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  }
+  

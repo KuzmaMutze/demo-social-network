@@ -2,8 +2,8 @@ import classes from './Setting.module.css';
 
 const Setting = () => {
     return (
-        <div>
-            Setting
+        <div className={classes.setting}>
+            В разработке
         </div>
     )  
 }
