@@ -1,5 +1,5 @@
 .wrapper{
-    /* padding: 10px; */
+    margin-top: 60px;
 }
 
 .newPost{
@@ -38,5 +38,26 @@
     font-family: 'Poppins', sans-serif;
     padding: 15px;
     height: 50px;
+    width: 80%;
 }
 
+
+@media (max-width: 1450px) {
+    .items{
+        display: block;
+    }
+    .textarea{
+        max-width: 70%;
+    }
+    
+  }
+
+@media (max-width: 1850px) {
+    .items{
+        display: block;
+    }
+    .textarea{
+        /* max-width: 200px; */
+    }
+    
+  }

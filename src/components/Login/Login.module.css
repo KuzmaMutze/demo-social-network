@@ -1,5 +1,5 @@
 .login{
-    margin: 30px;
+    margin: 30px;   
 }
 
 .formLogin{
@@ -8,7 +8,7 @@
     border: none;
     border-radius: 2rem;
     padding: 15px;
-    margin: 5px;
+    margin: 12px 0;
 }
 
 .buttonLogin{
@@ -18,4 +18,6 @@
     border-radius:1rem;
     padding:10px 20px;
     cursor: pointer;
+    color:black;
+    margin-top: 10px;
 }

@@ -6,8 +6,8 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 8fr;
   grid-gap:10px;
-  background: linear-gradient(to right bottom, rgba(255,255,255, 0.7), rgba(255,255,255, 0.3));
-  width: 60%; 
+  background: linear-gradient(to right bottom, rgba(255,255,255, 0.7), rgba(255,255,255, 0.3)); 
+  width: 60%;
   min-height: 88vh;
   margin: 0px auto 0;
   border-radius: 2rem;
@@ -17,6 +17,7 @@
 
 .app-wrapper-content{
   grid-area: c;
+  min-width: 310px;
 }
 
 .circleOne,
@@ -42,3 +43,18 @@
   left: 15%;
 }
 
+@media (max-width: 860px) {
+  .app-wrapper{
+      width: 90%;
+      grid-template-rows: 60px 60%;
+    grid-template-columns: 1fr 59%;
+  }
+}
+
+@media (max-width: 860px) {
+  .app-wrapper{
+      width: 90%;
+      grid-template-rows: 60px 60%;
+    grid-template-columns: 1fr 59%;
+  }
+}
