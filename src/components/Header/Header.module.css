@@ -6,8 +6,12 @@
     width: 100%;
 }
 
-.img {
-    width: 60px;
+.logo {
+    font-size: 25px;
+    display: inline-flex;
+    margin-top: 12px;
+    margin-left: 40px;
+    color:#aeb9c9;
 }
 
 .loginBlock{

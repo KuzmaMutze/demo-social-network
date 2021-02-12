@@ -10,90 +10,60 @@ const instance = axios.create({
     }
 })
 
+let data = (param) => {
+    return param.then(response => {
+        return response.data;
+    });
+}
+
 export const usersAPI = {
     // header auth
     getLogin () {
-        return instance.get(`auth/me`)
-            .then(response => {
-                return response.data;
-            });
+        return data(instance.get(`auth/me`))
     },
     login (email, password, rememberMe = false, captcha) {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
-        .then(response => {
-            return response.data;
-        });
+        return data(instance.post(`auth/login`, {email, password, rememberMe, captcha}))
     },
     logout () {
-        return instance.delete(`auth/login`)
-        .then(response => {
-            return response.data;
-        });
+        return data(instance.delete(`auth/login`))
     },
     // users
     getUsers(currentPage = 1, pageSize = 5) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data;
-            });
+        return data(instance.get(`users?page=${currentPage}&count=${pageSize}`))
     },
     savePhoto(photoFile) {
         const formData = new FormData();
         formData.append("image", photoFile);
 
-        return instance.put(`profile/photo`, formData, {
+        return data(instance.put(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        })
-        .then(response => {
-            return response.data;
-        });
+        }))
     },
     follow(userId) {
-        return instance.post(`follow/${userId}`)
-            .then(response => {
-                return response.data;
-            });
+        return data(instance.post(`follow/${userId}`))
     },
     unFollow(userId) {
-        return instance.delete(`follow/${userId}`)
-            .then(response => {
-                return response.data;
-            });
+        return data(instance.delete(`follow/${userId}`))
     },
     // content profile
     getProfile(userId) {
-        return instance.get(`profile/${userId}`)
-            .then(response => {
-                return response.data;
-            }); 
+        return data(instance.get(`profile/${userId}`)) 
     },
     setProfileInfo(profileInfo) {
-        return instance.put(`profile/`, profileInfo)
-        .then(response => {
-            return response.data;
-        }); 
+        return data(instance.put(`profile/`, profileInfo))
     },
     // status
     getStatus(userId) {
-        return instance.get(`profile/status/${userId}`)
-            .then(response => {
-                return response.data;
-            }); 
+        return data(instance.get(`profile/status/${userId}`))
     },
     updateStatus(status) {
-        return instance.put(`profile/status/`, {status: status})
-            .then(response => {
-                return response.data;
-            }); 
+        return data(instance.put(`profile/status/`, {status: status}))
     },
     // security
     getCaptcha() {
-        return instance.get(`security/get-captcha-url`)
-        .then(response => {
-            return response.data;
-        }); 
+        return data(instance.get(`security/get-captcha-url`))
     }
 };
     
