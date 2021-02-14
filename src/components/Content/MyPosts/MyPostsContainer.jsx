@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {addPostActionCreater, updatePostTextActionCreater} from '../../../redax/content-reducer';
+import {addPostActionCreater, updatePostTextActionCreater} from '../../../redux/content-reducer';
 import MyPosts from './MyPosts';
 
 

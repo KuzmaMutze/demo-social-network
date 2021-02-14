@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
-import { getUserProfile, getStatusProfile, updateStatusProfile, savePhoto, saveProfileInfo } from "../../redax/content-reducer";
+import { getUserProfile, getStatusProfile, updateStatusProfile, savePhoto, saveProfileInfo } from "../../redux/content-reducer";
 import Content from "./Content";
 import classes from './Content.module.css';
 

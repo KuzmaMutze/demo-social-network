@@ -43,18 +43,12 @@
   left: 15%;
 }
 
-@media (max-width: 860px) {
-  .app-wrapper{
-      width: 90%;
-      grid-template-rows: 60px 60%;
-    grid-template-columns: 1fr 59%;
-  }
-}
+
 
 @media (max-width: 860px) {
   .app-wrapper{
       width: 90%;
-      grid-template-rows: 60px 60%;
-    grid-template-columns: 1fr 59%;
+      grid-template-rows: 60px 80%;
+      grid-template-columns: 1fr 59%;
   }
 }

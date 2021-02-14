@@ -1,4 +1,4 @@
-import {addMessageActionCreater, updateMessageTextActionCreater} from "../../../redax/dialogs-reducer";
+import {addMessageActionCreater, updateMessageTextActionCreater} from "../../../redux/dialogs-reducer";
 import { connect } from "react-redux";
 import Messages from "./Messages";
 import { compose } from "redux";

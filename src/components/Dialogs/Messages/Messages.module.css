@@ -6,6 +6,7 @@
     font-family: 'Poppins', sans-serif;
     padding: 15px;
     height: 50px;
+    width: 80%;
 }
 
 .button{
@@ -19,3 +20,13 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
+
+
+
+@media (max-width: 1450px) {
+.messages{
+    max-width: 70%;
+}
+
+}
