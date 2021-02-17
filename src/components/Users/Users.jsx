@@ -1,8 +1,13 @@
-import React,{ useState }  from "react";
+import React, { useState }  from "react";
 import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
 import { NavLink } from "react-router-dom";
 
+// type PropsType = {
+//     follow: () => void
+//     unFollow: () => void
+//     setCurrentPage: () => 
+// }
 
 const Users = (props) => {
 
@@ -13,8 +18,7 @@ const Users = (props) => {
     for (let i=1; i <= pagesCount; i++) {
         pages.push(i);
     }
-      
-    
+
     let portionCount = Math.ceil(pagesCount / props.pageSize);
     let [portionNumber, setPortionNumber] = useState(1);
     let leftPortionPageNumber = (portionNumber - 1) * props.pageSize + 1;

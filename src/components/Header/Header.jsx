@@ -1,12 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
+// import { Redirect } from "react-router-dom";
 
 const Header = (props) => {
     
     return (
         <header className={classes.header}>
-            <div className={classes.logo}>
-                Company name
+            <div className={classes.logo} >
+                <NavLink  to={"/profile"}>
+                    Company name
+                </NavLink>
             </div>
             <div className={classes.loginBlock}>
                 {props.isAuth ? <div className={classes.loginParam}>

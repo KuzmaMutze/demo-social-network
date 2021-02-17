@@ -11,7 +11,16 @@
     display: inline-flex;
     margin-top: 12px;
     margin-left: 40px;
+}
+
+.logo a {
+    text-decoration: none;
     color:#aeb9c9;
+}
+
+.logo a:hover {
+    color:#658ec6;
+    transition: all 1s;
 }
 
 .loginBlock{

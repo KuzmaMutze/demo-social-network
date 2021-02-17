@@ -10,7 +10,7 @@ let initialState: InitialStateType = {
     initialzed: false,
 }
 
-const aapReducer = (state = initialState, action: any): InitialStateType => {
+const appReducer = (state = initialState, action: any): InitialStateType => {
     if (action.type === SET_INITIALZED) {
         return {
             ...state,
@@ -34,4 +34,4 @@ export let initializeApp = () => (dispatch: any) => {
     })
 }
 
-export default aapReducer;
+export default appReducer;
