@@ -1,3 +1,10 @@
+// type PropsType = {
+//     items: []
+//     itemId: number
+//     objectPropName: {}
+//     newObjProps: {}
+// }
+
 export const updateObjectInArray = (items, itemId, objectPropName, newObjProps) => {
 
     return items.map( u => {

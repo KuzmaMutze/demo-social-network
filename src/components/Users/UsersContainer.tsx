@@ -7,15 +7,36 @@ import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import {getUsersData, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from "../../redux/selectors/users-selectors"
+import { UsersType } from "../../types/types";
+import { AppStateType } from "../../redux/redux-store";
 
+type mapStateToPropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    isAuth: boolean
+    totalUsersCount: number
+    usersPage: Array<UsersType>
+    followingInProgress: Array<number> 
+    
+}
 
-class UsersAPIComponent extends React.Component {
+type mapDispatchToPropsType = {
+    getUsers: (currentPage:number, pageSize:number) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    setFollowingInProgress: Array<number>
+}
+
+type PropsType = mapStateToPropsType & mapDispatchToPropsType
+
+class UsersAPIComponent extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber:number) => {
         this.props.getUsers(pageNumber, this.props.pageSize);
     }
     render() {
@@ -37,7 +58,7 @@ class UsersAPIComponent extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         usersPage: getUsersData(state),
         pageSize: getPageSize(state),
@@ -48,10 +69,8 @@ let mapStateToProps = (state) => {
     }
 };
 
-
-
 export default compose(
     withAuthRedirect,
-    connect(mapStateToProps, {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers}),
+    connect<mapStateToPropsType, mapDispatchToPropsType, AppStateType>(mapStateToProps, {follow, unFollow, setFollowingInProgress, getUsers}),
     
 )(UsersAPIComponent);;

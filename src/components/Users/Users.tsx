@@ -2,14 +2,22 @@ import React, { useState }  from "react";
 import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
 import { NavLink } from "react-router-dom";
+import { UsersType } from "../../types/types";
 
-// type PropsType = {
-//     follow: () => void
-//     unFollow: () => void
-//     setCurrentPage: () => 
-// }
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    onPageChanged: (p:number) => void
+    currentPage: number
+    usersPage: Array<UsersType>
+    followingInProgress: Array<number>
+    unFollow: (userId:number) => void
+    follow: (userId:number) => void
+    isFetching: boolean
+    setFollowingInProgress: Array<number>
+}
 
-const Users = (props) => {
+const Users: React.FC<PropsType> = (props) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
