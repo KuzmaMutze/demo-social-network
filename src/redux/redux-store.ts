@@ -20,6 +20,7 @@ let rootReducers = combineReducers({
 
 type RootReducerType = typeof rootReducers; // (globalstate: AppStateType) => AppStateType
 export type AppStateType = ReturnType<RootReducerType>
+
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 

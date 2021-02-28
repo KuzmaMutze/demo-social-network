@@ -46,7 +46,7 @@ class App extends React.Component {
 							<Route path="/music" component={ () => <Music />}/>
 							<Route path="/setting" component={ () => <Setting />}/>
 							<Route path="/profile/:userId?" component={ withSuspensHoc(ContentContainer)}/>
-							<Route path="/users" component={ () => <UsersContainer/>}/>
+							<Route path="/users" component={ () => <UsersContainer pageTitle={"Users"}/>}/>
 							<Route path="*" component={() => <div>404 NOT FOUND</div>}/> 
 						</Switch>
 					</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {follow, unFollow, setCurrentPage, setFollowingInProgress, getUsers} from "../../redux/users-reducer";
+import {follow, unFollow, setFollowingInProgress, getUsers} from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader.jsx";
 import { Redirect } from "react-router-dom";
@@ -10,25 +10,27 @@ import {getUsersData, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetc
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
-type mapStateToPropsType = {
+type mapStatePropsType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
-    isAuth: boolean
     totalUsersCount: number
     usersPage: Array<UsersType>
     followingInProgress: Array<number> 
-    
+    isAuth: boolean
 }
 
-type mapDispatchToPropsType = {
+type mapDispatchPropsType = {
     getUsers: (currentPage:number, pageSize:number) => void
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    setFollowingInProgress: Array<number>
 }
 
-type PropsType = mapStateToPropsType & mapDispatchToPropsType
+type OwnPropsType = {
+    pageTitle: string
+}
+
+type PropsType = mapStatePropsType & mapDispatchPropsType & OwnPropsType
 
 class UsersAPIComponent extends React.Component<PropsType> {
 
@@ -40,10 +42,12 @@ class UsersAPIComponent extends React.Component<PropsType> {
         this.props.getUsers(pageNumber, this.props.pageSize);
     }
     render() {
+        
         if (this.props.isAuth == false) return <Redirect to={"/login"}></Redirect>;
         return <>
+            <h2>{this.props.pageTitle}</h2>
             { this.props.isFetching ? <Preloader/> : null }
-            <Users totalUsersCount={this.props.totalUsersCount}
+            <Users    totalUsersCount={this.props.totalUsersCount}
                       pageSize={this.props.pageSize}
                       currentPage={this.props.currentPage}
                       onPageChanged={this.onPageChanged}
@@ -51,15 +55,15 @@ class UsersAPIComponent extends React.Component<PropsType> {
                       follow={this.props.follow} 
                       unFollow={this.props.unFollow}
                       isFetching={this.props.isFetching}
-                      followingInProgress={this.props.followingInProgress}
-                      setFollowingInProgress={this.props.setFollowingInProgress} />
+                      followingInProgress={this.props.followingInProgress}/>
 
                 </>
     }
 }
 
-let mapStateToProps = (state: AppStateType) => {
+let mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
+        isAuth: state.auth.isAuth,
         usersPage: getUsersData(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
@@ -71,6 +75,6 @@ let mapStateToProps = (state: AppStateType) => {
 
 export default compose(
     withAuthRedirect,
-    connect<mapStateToPropsType, mapDispatchToPropsType, AppStateType>(mapStateToProps, {follow, unFollow, setFollowingInProgress, getUsers}),
+    connect<mapStatePropsType, mapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {follow, unFollow, getUsers}),
     
 )(UsersAPIComponent);;
