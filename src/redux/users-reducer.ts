@@ -1,6 +1,7 @@
 import { UsersType } from './../types/types';
 import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/validators/ojects-helpers"
+import { Dispatch } from 'redux';
 
 const FOLLOW = "samurai-network/users/FOLLOW";
 const UNFOLLOW = "samurai-network/users/UNFOLLOW";
@@ -23,9 +24,8 @@ let initialState = {
 
 export type initialStateType = typeof initialState
 
- const usersReducer = (state = initialState, action: any): initialStateType => {
 
-    
+ const usersReducer = (state = initialState, action: ActionsType): initialStateType => {
         if (action.type === FOLLOW) {
             return {
                 ...state,
@@ -55,6 +55,8 @@ export type initialStateType = typeof initialState
         };
     return state;
 };
+type ActionsType = AcceptFollowType | AcceptUnFollowType | SetUsersType | SetCurrentPageType | SetTotalUsersCountType | SetToggleIsFetchingType | SetFollowingInProgressType
+type DispatchType = Dispatch<ActionsType>
 
 // AC
 export const acceptFollow = (userId: number): AcceptFollowType => ({type: FOLLOW, userId});
@@ -100,8 +102,8 @@ type SetFollowingInProgressType = {
     userId: number
 }
 
-
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreater: any) => {
+// hoc
+const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreater: (userId: number) => AcceptFollowType | AcceptUnFollowType) => {
         dispatch(setFollowingInProgress(true, userId));
         let data = await apiMethod(userId)
         if (data.resultCode == 0) {
@@ -110,9 +112,9 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any,
         dispatch(setFollowingInProgress(false, userId));
     }
 
-//thunks 
+// thunks 
 export const getUsers = (currentPage: number, pageSize: number) => {
-    return async (dispatch: any) => {
+    return async (dispatch: DispatchType) => {
         dispatch(setToggleIsFetching(true));
         dispatch(setCurrentPage(currentPage))
     let data = await usersAPI.getUsers(currentPage, pageSize)
@@ -123,14 +125,14 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 };
 
 export const follow = (userId: number) => {
-    return async (dispatch: any) => {
-        followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), acceptFollow);
+    return async (dispatch: DispatchType) => {
+        _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), acceptFollow);
     }
 };
 
 export const unFollow = (userId: number) => {
-    return async (dispatch: any) => {
-        followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), acceptUnFollow);
+    return async (dispatch: DispatchType) => {
+        _followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), acceptUnFollow);
     }                       
 };
 

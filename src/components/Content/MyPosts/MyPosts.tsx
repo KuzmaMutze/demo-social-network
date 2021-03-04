@@ -3,9 +3,14 @@ import Post from './Post/Post';
 import {Field, reduxForm} from "redux-form"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
 import {Textarea} from "../../common/FormsControls/FormsControls"
+import { PostDataType } from '../../../types/types';
 
+type PropsType = {
+    postData: PostDataType
+    addPost: (addedPostElement: string) => void
+}
 
-const MyPosts = (props) => {
+const MyPosts: React.FC<PropsType> = (props) => {
     
     let postElements = props.postData.slice(0).reverse().map( (post) => <Post message={post.message} key={post.id} like={post.like}/>);
 

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import {follow, unFollow, setFollowingInProgress, getUsers} from "../../redux/users-reducer";
+import { follow, unFollow, setFollowingInProgress, getUsers } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader.jsx";
 import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
-import {getUsersData, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from "../../redux/selectors/users-selectors"
+import { getUsersData, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from "../../redux/selectors/users-selectors"
 import { UsersType } from "../../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
