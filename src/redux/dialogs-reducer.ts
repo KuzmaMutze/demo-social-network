@@ -30,7 +30,7 @@ let initialState = {
  
 export type initialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): initialStateType => {
+const dialogsReducer = (state = initialState, action: ActionsType): initialStateType => {
         if (action.type === ADD_MESSAGE) {
             let body = action.values;
             return {
@@ -40,6 +40,8 @@ const dialogsReducer = (state = initialState, action: any): initialStateType => 
         };
     return state;
 }
+
+type ActionsType = AddMessageActionCreaterType
 
 type AddMessageActionCreaterType = {
     type: typeof ADD_MESSAGE

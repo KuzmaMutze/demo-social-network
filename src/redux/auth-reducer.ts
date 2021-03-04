@@ -1,5 +1,5 @@
 import { stopSubmit } from "redux-form";
-import {usersAPI} from "../api/api";
+import {ResultCodesEnum, usersAPI} from "../api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA";
 const SET_CAPTCHA = "samurai-network/auth/SET_CAPTCHA";
@@ -55,7 +55,7 @@ export const getCuptcha = (captcha: string): GetCaptchaActionType => ({type: SET
 
 export const getAuth = () => async (dispatch: any) => {
         let data = await usersAPI.getLogin()
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodesEnum.Success) {
                 let {id, email, login} = data.data;
                 dispatch(setUserData(id, email, login, true));
             }
@@ -64,9 +64,9 @@ export const getAuth = () => async (dispatch: any) => {
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return async (dispatch: any) => {
         let data = await usersAPI.login(email, password, rememberMe, captcha)
-            if (data.resultCode === 0) {
+            if (data.resultCode === ResultCodesEnum.Success) {
                 dispatch(getAuth())
-            } else if (data.resultCode === 10){
+            } else if (data.resultCode === ResultCodesEnum.CaptchaIsRequeired){
                 dispatch(getCuptchaUrl())
                 let message = data.messages.length > 0 ? data.messages[0] : "some error"
                 dispatch(stopSubmit("login", {_error: message}))                             //fix
