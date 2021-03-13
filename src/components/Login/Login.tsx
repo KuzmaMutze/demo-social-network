@@ -18,8 +18,8 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
     
     return <div>
         <form onSubmit={props.handleSubmit}>
-            <div><Field className={classes.formLogin} value="free@samuraijs.com" placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
-            <div><Field className={classes.formLogin} value="free" placeholder={"Password"} name={"password"} type="password" component={Input} validate={[required, maxLenghtCreacter15]}/></div> 
+            <div><Field className={classes.formLogin} placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
+            <div><Field className={classes.formLogin} placeholder={"Password"} name={"password"} type="password" component={Input} validate={[required, maxLenghtCreacter15]}/></div> 
             <div><Field className={classes.formLogin} component={"input"} name={"rememberMe"} type="checkbox"/> Remember me</div>
             {
                 props.error ? <div>{props.error}</div> : ""
