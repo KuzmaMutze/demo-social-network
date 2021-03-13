@@ -81,5 +81,4 @@ export const usersAPI = {
     getCaptcha() {
         return data(instance.get(`security/get-captcha-url`))
     }
-};
-    
+}
