@@ -1,17 +1,18 @@
+import { BaseThunkType, InferActionTypes } from './redux-store';
 import { getAuth } from './auth-reducer';
+import { Dispatch } from 'redux';
 
-const SET_INITIALZED = "samurai-network/auth/SET_INITIALZED"
-
-export type InitialStateType = {
-    initialzed: boolean
-}
-
-let initialState: InitialStateType = {
+let initialState = {
     initialzed: false,
 }
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionTypes<typeof actions>
+// type DispatchType = Dispatch<ActionsType>
+type ThunkType = BaseThunkType<ActionsType>
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
-    if (action.type === SET_INITIALZED) {
+
+const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
+    if (action.type === "SET_INITIALZED") {
         return {
             ...state,
             initialzed: true
@@ -20,17 +21,15 @@ const appReducer = (state = initialState, action: any): InitialStateType => {
     return state;
 }
 
-export type SetInitialzedSuccessActionType = {
-    type: typeof SET_INITIALZED
+export const actions = {
+    setInitialzedSuccess: () => ({type: "SET_INITIALZED"} as const) 
 }
 
-let setInitialzedSuccess = (): SetInitialzedSuccessActionType => ({type: SET_INITIALZED})
-
-export let initializeApp = () => (dispatch: any) => {
+export let initializeApp = (): ThunkType => (dispatch) => {
     let promise = dispatch(getAuth());
     Promise.all([promise])
     .then(() => {
-        dispatch(setInitialzedSuccess())
+        dispatch(actions.setInitialzedSuccess())
     })
 }
 

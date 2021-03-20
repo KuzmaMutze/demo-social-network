@@ -2,15 +2,7 @@ import { ProfileType, PostDataType } from './../types/types';
 import { stopSubmit } from "redux-form";
 import { usersAPI } from "../api/api";
 import { Dispatch } from 'redux';
-import { AppStateType } from './redux-store';
-
-const ADD_POST = "samurai-network/content/ADD_POST";
-const UPDATE_NEW_POST_TEXT = "samurai-network/content/UPDATE_NEW_POST_TEXT";
-const SET_USER_PROFILE = "samurai-network/content/SET_USER_PROFILE";
-const SET_STATUS = "samurai-network/content/SET_STATUS";
-const SAVE_PHOTO = "samurai-network/content/SAVE_PHOTO";
-
-
+import { AppStateType, BaseThunkType, InferActionTypes } from './redux-store';
 
 let initialState = {
     postData: [
@@ -23,101 +15,81 @@ let initialState = {
 };
 
 export type InitialStateType = typeof initialState
+type ActionsType = InferActionTypes<typeof actions>
+// type DispatchType = Dispatch<ActionsType>
+// type GetStateType = () => AppStateType
+type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>
 
- const contentReducer = (state = initialState, action: any): InitialStateType => {
-        if (action.type === ADD_POST) {
+ const contentReducer = (state = initialState, action: ActionsType): InitialStateType => {
+        if (action.type === "ADD_POST") {
             return {
                 ...state,
                 postData: [...state.postData, {message: action.values, like: 0}]
             }
-        } else if (action.type == UPDATE_NEW_POST_TEXT) {
+        } else if (action.type == "UPDATE_NEW_POST_TEXT") {
             let stateCopy = {...state};
             stateCopy.postData = [...state.postData];
             stateCopy.newPostText = action.text;
             return stateCopy;
-        } else if (action.type == SET_USER_PROFILE) {
+        } else if (action.type == "SET_USER_PROFILE") {
             return {...state, profile: action.profile}
-        }else if (action.type == SET_STATUS) {
+        }else if (action.type == "SET_STATUS") {
             return {...state, status: action.status}
-        }else if (action.type == SAVE_PHOTO) {
-            return {...state,
-            profile: {...state.profile, photos: action.photos} as ProfileType
-        }
-        
+        }else if (action.type == "SAVE_PHOTO") {
+            return {...state,  profile: {...state.profile, photos: action.photos} as ProfileType}
         }
     return state;
 };
-type ActionsType = AddPostActionCreaterType | UpdatePostTextActionCreaterType | SetUserProfileType | SetUserStatusType | SavePhotoSuccsesType
-type DispatchType = Dispatch<ActionsType>
-type GetStateType = () => AppStateType
 
-export const addPostActionCreater = (values: string): AddPostActionCreaterType => ({type: ADD_POST, values});
-type AddPostActionCreaterType = {
-    type: typeof ADD_POST
-    values: string
-}
-
-export const updatePostTextActionCreater = (text: string): UpdatePostTextActionCreaterType => ({type: UPDATE_NEW_POST_TEXT, text});
-type UpdatePostTextActionCreaterType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    text: string
-}
-
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile});
-type SetUserProfileType = {
-    type: typeof SET_USER_PROFILE
-    profile: ProfileType
-}
-
-export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_STATUS, status});
-type SetUserStatusType = {
-    type: typeof SET_STATUS
-    status: string
-}
-
-export const savePhotoSuccses = (photos: string): SavePhotoSuccsesType => ({type: SAVE_PHOTO, photos});
-type SavePhotoSuccsesType = {
-    type: typeof SAVE_PHOTO
-    photos: string
+export const actions = {
+    addPostActionCreater: (values: string) => ({type: "ADD_POST", values} as const),
+    updatePostTextActionCreater: (text: string) => ({type: "UPDATE_NEW_POST_TEXT", text} as const),
+    setUserProfile: (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const),
+    setUserStatus: (status: string) => ({type: "SET_STATUS", status} as const),
+    savePhotoSuccses: (photos: string) => ({type: "SAVE_PHOTO", photos} as const)
 }
 
 
-export const getUserProfile = (userId: number) => {
-    return async (dispatch: DispatchType) => {
+export const getUserProfile = (userId: number): ThunkType => {
+    return async (dispatch) => {
         let data = await usersAPI.getProfile(userId)
-            dispatch(setUserProfile(data));  
+            dispatch(actions.setUserProfile(data));  
     }
 }
 
-export const getStatusProfile = (userId: number) => {
-    return async (dispatch: DispatchType) => {
+export const getStatusProfile = (userId: number): ThunkType => {
+    return async (dispatch) => {
         let data = await usersAPI.getStatus(userId)
-            dispatch(setUserStatus(data));  
+            dispatch(actions.setUserStatus(data));  
     }
 }
 
-export const updateStatusProfile = (status: string) => {
-    return async (dispatch: DispatchType) => {
+export const updateStatusProfile = (status: string): ThunkType => {
+    return async (dispatch) => {
         let data = await usersAPI.updateStatus(status)
             if (data.resultCode === 0){
-                dispatch(setUserStatus(status));  
+                dispatch(actions.setUserStatus(status));
             }
     }
 }
 
-export const savePhoto = (photos: any) => async (dispatch: DispatchType) => {
+export const savePhoto = (photos: File): ThunkType => async (dispatch) => {
     let data = await usersAPI.savePhoto(photos);
 
     if (data.resultCode === 0){
-        dispatch(savePhotoSuccses(data.data.photos));  
+        dispatch(actions.savePhotoSuccses(data.data.photos));  
     }
 }
 
-export const saveProfileInfo = (profileInfo: ProfileType) => async (dispatch: DispatchType, getState: GetStateType) => {
+export const saveProfileInfo = (profileInfo: ProfileType): ThunkType => async (dispatch, getState) => {
     const userId = getState().auth.userId;
     let data = await usersAPI.setProfileInfo(profileInfo);
     if (data.resultCode === 0){
-        dispatch(getUserProfile(userId));  
+        if(userId != null) {
+            dispatch(getUserProfile(userId));
+        } else {
+            throw new Error("userId can't be null")
+        }
     }else {
         let message = data.messages.length > 0 ? data.messages[0] : "some error"
         dispatch(stopSubmit("edit-profile", {_error: message}));
