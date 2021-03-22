@@ -2,19 +2,19 @@ import Preloader from '../../common/Preloader/Preloader';
 import classes from './Profile.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import userPhoto from "../../../assets/img/1.png";
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
 import React from "react";
-import { ProfileType } from '../../../types/types';
+import { ProfileType, ContactsType } from '../../../types/types';
 
 type PropsType = {
-    profile: ProfileType
-    savePhoto: () => void
-    saveProfileInfoI: () => void
+    profile: ProfileType | null
+    savePhoto: (file: File) => void
+    // saveProfileInfoI: () => void
     isOwner: boolean
     status: string
-    updateStatusProfile: () => void
-    saveProfileInfo: () => void
+    updateStatusProfile: (status: string) => void
+    saveProfileInfo: (profile: ProfileType) => Promise<any>
 }
 
 
@@ -26,17 +26,17 @@ const Content: React.FC<PropsType> = (props) => {
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e) => {
-        if (e.target.files.length){
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length){
             props.savePhoto(e.target.files[0]);
         }
     }
 
-    const onSubmit = (formData) => {
-        props.saveProfileInfo(formData).then(() => {
+    const onSubmit = (profile: ProfileType) => {
+        // todo: remove then
+        props.saveProfileInfo(profile).then(() => {
             setEditMode(false);
         })
-        
     }
 
     return (
@@ -50,7 +50,8 @@ const Content: React.FC<PropsType> = (props) => {
                     <ProfileStatusWithHooks status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                 </div>
                 <div className={classes.info}>
-                    {editMode ? <ProfileDataReduxForm onSubmit={onSubmit} initialValues={props.profile} profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {setEditMode(false)}}/> 
+                    {/* @ts-ignore */}
+                    {editMode ? <ProfileDataReduxForm submit={onSubmit} initialValues={props.profile} profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {setEditMode(false)}}/> 
                     : <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {setEditMode(true)}}/>}
                 </div>
             </div>
@@ -75,7 +76,7 @@ const ProfileData: React.FC<PropsTypeForProfileData> = ({profile, isOwner, goToE
                 <br/>
                 <div>
                     <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-                    return <Contact contactTitle={key} contactValue={profile.contacts[key]}/>
+                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
                     })}                
                 </div>
                 <br/>

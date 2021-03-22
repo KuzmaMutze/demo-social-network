@@ -7,14 +7,14 @@ import { MessagesDataType } from "../../../redux/dialogs-reducer";
 
 type PropsType = {
     messagesData: Array<MessagesDataType>
-    addMessage: (newMessageElement: string) => void
+    addMessageActionCreater: (newMessageElement: string) => void
 }
 
 const Messages: React.FC<PropsType> = (props) => {
 
     let messagesElements = props.messagesData.map(message => <Message massage={message.message}/>);
     let addMessage = (values : {newMessageElement: string}) => {
-        props.addMessage(values.newMessageElement);
+        props.addMessageActionCreater(values.newMessageElement);
     };
     return (
         <div className={classes.message}>

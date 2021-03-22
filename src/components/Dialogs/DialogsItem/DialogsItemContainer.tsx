@@ -8,7 +8,8 @@ let mapStateToProps = (state: AppStateType) => ({
     dialogsPage: state.dialogsPage
 })
 
-export default compose(
+// JSX element type 'DialogsItemContainer' does not have any construct or call signatures. (add <React.ComponentType>)
+export default compose<React.ComponentType>(
     connect(mapStateToProps),
     withAuthRedirect
 )(DialogsItem);

@@ -36,7 +36,8 @@ type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>
         }else if (action.type == "SET_STATUS") {
             return {...state, status: action.status}
         }else if (action.type == "SAVE_PHOTO") {
-            return {...state,  profile: {...state.profile, photos: action.photos} as ProfileType}
+            return {...state,  profile: { ...state.profile, photos: action.photos } as unknown as ProfileType}
+            // todo: get rid of unknow
         }
     return state;
 };

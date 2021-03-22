@@ -7,6 +7,6 @@ import { AppStateType } from "../../../redux/redux-store";
 let mapStateToProps = (state: AppStateType) => ({
         messagesData: state.dialogsPage.messagesData,   
 })
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {...actions})
 )(Messages);

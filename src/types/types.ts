@@ -1,6 +1,7 @@
 export type PostDataType = {
     message: string
     like: number
+    id?: number
 }
 export type ContactsType = {
     github: string
@@ -17,6 +18,7 @@ export type PhotosType = {
     large: string | null
 }
 export type ProfileType = {
+    aboutMe: string
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string

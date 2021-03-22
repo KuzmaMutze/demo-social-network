@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { follow, unFollow, setFollowingInProgress, getUsers } from "../../redux/users-reducer";
+import { follow, unFollow, getUsers } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader.jsx";
 import { Redirect } from "react-router-dom";
@@ -26,11 +26,9 @@ type mapDispatchPropsType = {
     unFollow: (userId: number) => void
 }
 
-type OwnPropsType = {
-    pageTitle: string
-}
 
-type PropsType = mapStatePropsType & mapDispatchPropsType & OwnPropsType
+
+type PropsType = mapStatePropsType & mapDispatchPropsType
 
 class UsersAPIComponent extends React.Component<PropsType> {
 
@@ -45,7 +43,6 @@ class UsersAPIComponent extends React.Component<PropsType> {
         
         if (this.props.isAuth == false) return <Redirect to={"/login"}></Redirect>;
         return <>
-            <h2>{this.props.pageTitle}</h2>
             { this.props.isFetching ? <Preloader/> : null }
             <Users    totalUsersCount={this.props.totalUsersCount}
                       pageSize={this.props.pageSize}
@@ -56,7 +53,6 @@ class UsersAPIComponent extends React.Component<PropsType> {
                       unFollow={this.props.unFollow}
                       isFetching={this.props.isFetching}
                       followingInProgress={this.props.followingInProgress}/>
-
                 </>
     }
 }
@@ -71,10 +67,10 @@ let mapStateToProps = (state: AppStateType): mapStatePropsType => {
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
     }
-};
+}
 
-export default compose(
+export default compose<React.ComponentType>(
     withAuthRedirect,
-    connect<mapStatePropsType, mapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {follow, unFollow, getUsers}),
+    connect<mapStatePropsType, mapDispatchPropsType, null, AppStateType>(mapStateToProps, {follow, unFollow, getUsers}),
     
-)(UsersAPIComponent);;
+)(UsersAPIComponent)

@@ -4,7 +4,7 @@ import classes from './Profile.module.css';
 type PropsType = {
     status: string
     updateStatusProfile: (status: string) => void
-    onStatusChange: () => void
+    // onStatusChange: () => void
 }
 
 const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
@@ -25,7 +25,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
         props.updateStatusProfile(status);
     }
 
-    const onStatusChange = (e) => {
+    const onStatusChange = (e: any) => {
         setStatus(e.currentTarget.value);
     }
 

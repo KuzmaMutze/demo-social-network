@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import {addPostActionCreater, updatePostTextActionCreater} from '../../../redux/content-reducer';
+import {actions} from '../../../redux/content-reducer';
 import { AppStateType } from '../../../redux/redux-store';
 import { PostDataType } from '../../../types/types';
 import MyPosts from './MyPosts';
 
 type mapStatePropsType = {
-    postData: PostDataType
+    postData: Array<PostDataType>
     newPostText: string
 }
 
@@ -19,14 +19,8 @@ let mapStateToProps = (state: AppStateType): mapStatePropsType => {
         newPostText: state.contentPage.newPostText
     }
 }
-let mapDispatchToProps = (dispatch: any) => {
-    return {
-        addPost: (values: string) => {
-            dispatch(addPostActionCreater(values));
-        }
-    }
-}
-
-let MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+let MyPostsContainer = connect<mapStatePropsType, mapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+        addPost: actions.addPostActionCreater
+    })(MyPosts);
 
 export default MyPostsContainer;

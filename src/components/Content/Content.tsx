@@ -4,12 +4,12 @@ import classes from './Content.module.css';
 import { ProfileType } from '../../types/types';
 
 type PropsType = {
-    saveProfileInfo: () => void
-    savePhoto: () => void
+    saveProfileInfo: (profile: ProfileType) => Promise<any>
+    savePhoto: (file: File) => void
     isOwner: boolean
-    profile: ProfileType
+    profile: ProfileType | null,
     status: string
-    updateStatusProfile: () => void
+    updateStatusProfile: (status: string) => void
 }
 
 let Content: React.FC<PropsType> = (props) => {

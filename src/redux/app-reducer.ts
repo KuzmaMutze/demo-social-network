@@ -7,7 +7,7 @@ let initialState = {
 }
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionTypes<typeof actions>
-// type DispatchType = Dispatch<ActionsType>
+type DispatchType = Dispatch<ActionsType>
 type ThunkType = BaseThunkType<ActionsType>
 
 
@@ -24,8 +24,8 @@ const appReducer = (state = initialState, action: ActionsType): InitialStateType
 export const actions = {
     setInitialzedSuccess: () => ({type: "SET_INITIALZED"} as const) 
 }
-
-export let initializeApp = (): ThunkType => (dispatch) => {
+// t
+export let initializeApp = () => (dispatch: any) => {
     let promise = dispatch(getAuth());
     Promise.all([promise])
     .then(() => {
