@@ -66,7 +66,7 @@ const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
         return <Redirect to={"/profile"}/>
     }
 
-    return <div  className={classes.login}>
+    return <div className={classes.login}>
         <h1>Login</h1>
         <ReduxLoginForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
     </div>

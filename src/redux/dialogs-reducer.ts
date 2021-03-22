@@ -1,6 +1,6 @@
 import { InferActionTypes } from "./redux-store";
 
-type MessagesDataType = {
+export type MessagesDataType = {
     message: string
 }
 type DialogsDataType = {

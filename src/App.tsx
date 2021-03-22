@@ -13,13 +13,22 @@ import { initializeApp } from './redux/app-reducer';
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 import { withSuspensHoc } from './hoc/withSuspensHoc';
+import { AppStateType } from './redux/redux-store';
 
 // import Dialogs from './components/Dialogs/Dialogs';
 // import ContentContainer from './components/Content/ContentContainer';
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
 const ContentContainer = React.lazy(() => import('./components/Content/ContentContainer'));
 
-class App extends React.Component {
+const WithSuspensHocDialogs = withSuspensHoc(Dialogs)
+const WithSuspensHocContentContainer = withSuspensHoc(ContentContainer)
+
+type PropsType = {
+	initializeApp: () => void
+	initialzed: boolean
+}
+
+class App extends React.Component<PropsType> {
 
 	componentDidMount() {
         this.props.initializeApp()
@@ -41,11 +50,11 @@ class App extends React.Component {
 						<Switch>
 							<Route exact path="/" component={() =>  <Redirect to={"/profile"} />}/>
 							<Route path="/login" component={ () => <Login/>}/>
-							<Route exact path="/dialogs" component={ withSuspensHoc(Dialogs) }/>
+							<Route exact path="/dialogs" component={ () => <WithSuspensHocDialogs/> }/>
 							<Route path="/news" component={ () => <News />}/>
 							<Route path="/music" component={ () => <Music />}/>
 							<Route path="/setting" component={ () => <Setting />}/>
-							<Route path="/profile/:userId?" component={ withSuspensHoc(ContentContainer)}/>
+							<Route path="/profile/:userId?" component={ () => <WithSuspensHocContentContainer/> }/>
 							<Route path="/users" component={ () => <UsersContainer pageTitle={"Users"}/>}/>
 							<Route path="*" component={() => <div>404 NOT FOUND</div>}/> 
 						</Switch>
@@ -56,7 +65,7 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
 	initialzed: state.app.initialzed
 })
 
