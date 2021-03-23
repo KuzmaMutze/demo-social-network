@@ -2,7 +2,7 @@ import { PhotosType, ProfileType } from './../types/types';
 import axios, { AxiosResponse } from "axios";
 import { UsersType } from "../types/types";
 
-type ResponseType<D = {}, RC = ResultCodesEnum> = {
+export type ResponseType<D = {}, RC = ResultCodesEnum> = {
     data: D
     messages: Array<string>
     resultCode: RC
@@ -102,3 +102,4 @@ export const usersAPI = {
         return data(instance.get<GetCaptchaURLResponseType>(`security/get-captcha-url`))
     }
 }
+
