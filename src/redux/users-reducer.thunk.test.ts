@@ -12,7 +12,7 @@ const result: ResponseType = {
 
 describe('thunks', () => {
     test("success follow thunk", async () => {
-        userAPIMock.follow.mockReturnValue(Promise.resolve(result))
+        userAPIMock.follow.mockReturnValue(Promise.resolve(result)) // if follow will be called mock return result
         const thunk = follow(1)
         const dispatchMock = jest.fn()
         const getStateMock = jest.fn()
@@ -20,6 +20,7 @@ describe('thunks', () => {
         await thunk(dispatchMock, getStateMock, {})
     
         expect(dispatchMock).toBeCalledTimes(3)
+        // calls with somethings obj
         expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setFollowingInProgress(true, 1))
         expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.acceptFollow(1))
         expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.setFollowingInProgress(false, 1))
