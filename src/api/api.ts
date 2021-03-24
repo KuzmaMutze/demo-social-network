@@ -64,8 +64,8 @@ export const usersAPI = {
         return data(instance.delete(`auth/login`))
     },
     // users
-    getUsers(currentPage: number = 1, pageSize: number = 5) {
-        return data(instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`))
+    getUsers(currentPage: number = 1, pageSize: number = 5, term: string = "", friend: null | boolean = null) {
+        return data(instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? "" : `&friend=${friend}`)))
     },
     savePhoto(photoFile: any) {
         const formData = new FormData();

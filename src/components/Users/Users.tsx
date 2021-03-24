@@ -3,6 +3,8 @@ import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
 import { NavLink } from "react-router-dom";
 import { UsersType } from "../../types/types";
+import UsersSearchForm from "./UsersSearchForm/UsersSearchForm";
+import { FilterType } from "../../redux/users-reducer";
 
 type PropsType = {
     totalUsersCount: number
@@ -14,6 +16,7 @@ type PropsType = {
     unFollow: (userId:number) => void
     follow: (userId:number) => void
     isFetching: boolean
+    onFilterChanged: (filter: FilterType) => void
 }
 
 const Users: React.FC<PropsType> = (props) => {
@@ -32,6 +35,7 @@ const Users: React.FC<PropsType> = (props) => {
     let rightPortionPageNumber = props.pageSize * portionNumber;
 
     return <div className={classes.users}>
+        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
         <div className={classes.paginator}>
             {
                 portionNumber > 1 && <button className={classes.buttonDefult} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
