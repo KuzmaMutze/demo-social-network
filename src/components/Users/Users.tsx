@@ -1,27 +1,50 @@
-import React, { useState }  from "react";
+import React, { useEffect, useState }  from "react";
 import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
 import { NavLink } from "react-router-dom";
 import { UsersType } from "../../types/types";
 import UsersSearchForm from "./UsersSearchForm/UsersSearchForm";
-import { FilterType } from "../../redux/users-reducer";
+import { FilterType, getUsers } from "../../redux/users-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsersData, getUsersFilter } from "../../redux/selectors/users-selectors";
 
 type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    onPageChanged: (p:number) => void
-    currentPage: number
-    usersPage: Array<UsersType>
-    followingInProgress: Array<number>
-    unFollow: (userId:number) => void
-    follow: (userId:number) => void
-    isFetching: boolean
-    onFilterChanged: (filter: FilterType) => void
+
 }
 
-const Users: React.FC<PropsType> = (props) => {
+const dispatch = useDispatch()
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+// const getUsers = () => {}
+
+useEffect(() => {
+    getUsers(currentPage, pageSize, filter);
+}, [])
+
+const onPageChanged = (pageNumber: number) => {
+    dispatch(getUsers(pageNumber, pageSize, filter))
+}
+const onFilterChanged = (filter: FilterType) => {
+    dispatch(getUsers(1, pageSize, filter))
+}
+const unFollow = (userId: number) => {
+    dispatch(unFollow(userId))
+}
+const follow = (userId: number) => {
+    dispatch(follow(userId))
+}
+
+const usersPage = useSelector(getUsersData)
+const pageSize = useSelector(getPageSize)
+const totalUsersCount = useSelector(getTotalUsersCount)
+const currentPage = useSelector(getCurrentPage)
+const followingInProgress = useSelector(getFollowingInProgress)
+const filter = useSelector(getUsersFilter)
+
+
+
+export const Users: React.FC<PropsType> = (props) => {
+
+    let pagesCount = Math.ceil(totalUsersCount / pageSize);
 
     let pages = [];
     
@@ -29,13 +52,13 @@ const Users: React.FC<PropsType> = (props) => {
         pages.push(i);
     }
 
-    let portionCount = Math.ceil(pagesCount / props.pageSize);
+    let portionCount = Math.ceil(pagesCount / pageSize);
     let [portionNumber, setPortionNumber] = useState(1);
-    let leftPortionPageNumber = (portionNumber - 1) * props.pageSize + 1;
-    let rightPortionPageNumber = props.pageSize * portionNumber;
+    let leftPortionPageNumber = (portionNumber - 1) * pageSize + 1;
+    let rightPortionPageNumber = pageSize * portionNumber;
 
     return <div className={classes.users}>
-        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
         <div className={classes.paginator}>
             {
                 portionNumber > 1 && <button className={classes.buttonDefult} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
@@ -43,7 +66,7 @@ const Users: React.FC<PropsType> = (props) => {
 
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map((p) => {
-                return <span key={p} onClick={ (e) => { props.onPageChanged(p) }} className={`${props.currentPage === p && classes.selectPage} ${classes.pageNumber}`}>{p}</span>
+                return <span key={p} onClick={ (e) => { onPageChanged(p) }} className={`${currentPage === p && classes.selectPage} ${classes.pageNumber}`}>{p}</span>
             })
             }
 
@@ -52,7 +75,7 @@ const Users: React.FC<PropsType> = (props) => {
             }
         </div>
         {
-        props.usersPage.map(u => <div key={u.id}>
+        usersPage.map(u => <div key={u.id}>
 
             <span>
                 <div>
@@ -66,23 +89,11 @@ const Users: React.FC<PropsType> = (props) => {
                 </span>
                 <div>
                     {u.followed
-                        ? <button className={classes.button} disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.unFollow(u.id) }}>unFollow</button>
-                        : <button className={classes.button} disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => { props.follow(u.id) }}>Follow</button>}
+                        ? <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { unFollow(u.id) }}>unFollow</button>
+                        : <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { follow(u.id) }}>Follow</button>}
                 </div>
             </span>
-
-            <span>
-                
-                <span>
-                    {/* <div>{"u.location.country"}</div>
-                    <div>{"u.location.city"}</div> */}
-                    <div></div>
-                </span>
-            </span>
-
         </div>)
     }
 </div>
 }
-
-export default Users;

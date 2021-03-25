@@ -5,7 +5,7 @@ import News from './components/News/News';
 import Setting from './components/Setting/Setting';
 import Music from './components/Music/Music';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import UsersContainer from './components/Users/UsersContainer';
+import { UsersPage } from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
@@ -55,7 +55,7 @@ class App extends React.Component<PropsType> {
 							<Route path="/music" component={ () => <Music />}/>
 							<Route path="/setting" component={ () => <Setting />}/>
 							<Route path="/profile/:userId?" component={ () => <WithSuspensHocContentContainer/> }/>
-							<Route path="/users" component={ () => <UsersContainer/>}/>
+							<Route path="/users" component={ () => <UsersPage/>}/>
 							<Route path="*" component={() => <div>404 NOT FOUND</div>}/> 
 						</Switch>
 					</div>
