@@ -7,7 +7,7 @@ import Music from './components/Music/Music';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import { UsersPage } from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import { Login } from './components/Login/Login';
 import { connect } from 'react-redux';
 import { initializeApp } from './redux/app-reducer';
 import { compose } from 'redux';

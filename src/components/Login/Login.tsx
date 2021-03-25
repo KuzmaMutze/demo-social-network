@@ -2,7 +2,7 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import {Input} from "../common/FormsControls/FormsControls"
 import { required, maxLenghtCreacter } from '../../utils/validators/validatirs';
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
@@ -41,15 +41,6 @@ const ReduxLoginForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({
 })(LoginForm)
 
 
-type MapStateToProps = {
-    captchaUrl: string | null
-    isAuth: boolean
-}
-
-type MapDispatchToProps = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-
 type LoginFormValuesType = {
     email: string
     password: string
@@ -57,25 +48,24 @@ type LoginFormValuesType = {
     captcha: string
 }
 
-const Login: React.FC<MapStateToProps & MapDispatchToProps> = (props) => {
+export const Login: React.FC = (props) => {
+
+    const captchaUrl = useSelector((state: AppStateType) => state.auth.captchaUrl)
+    const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+
+    const dispatch = useDispatch()
+
     const onSubmit = (formData: LoginFormValuesType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+        dispatch(login(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"}/>
     }
 
     return <div className={classes.login}>
         <h1>Login</h1>
-        <ReduxLoginForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
+        <ReduxLoginForm captchaUrl={captchaUrl} onSubmit={onSubmit}/>
     </div>
     
 }
-
-let mapStateToProps = (state: AppStateType) => ({
-    captchaUrl: state.auth.captchaUrl,
-    isAuth: state.auth.isAuth
-})
-
-export default connect(mapStateToProps, {login})(Login);
