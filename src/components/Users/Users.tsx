@@ -1,24 +1,43 @@
 import React, { useEffect, useState }  from "react";
 import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
-import { NavLink } from "react-router-dom";
-import { UsersType } from "../../types/types";
+import { NavLink, useHistory } from "react-router-dom";
 import UsersSearchForm from "./UsersSearchForm/UsersSearchForm";
 import { FilterType, getUsers } from "../../redux/users-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsersData, getUsersFilter } from "../../redux/selectors/users-selectors";
-
+import queryString from 'query-string';
 type PropsType = {
 
 }
 
 const dispatch = useDispatch()
+const history = useHistory()
 
-// const getUsers = () => {}
+
+const usersPage = useSelector(getUsersData)
+const pageSize = useSelector(getPageSize)
+const totalUsersCount = useSelector(getTotalUsersCount)
+const currentPage = useSelector(getCurrentPage)
+const followingInProgress = useSelector(getFollowingInProgress)
+const filter = useSelector(getUsersFilter)
 
 useEffect(() => {
-    getUsers(currentPage, pageSize, filter);
+    const parsed = queryString.parse(history.location.search.substr(1)) as {term: string; page: string; friend: string};
+    let actualPage = currentPage
+    let actualFilter = filter
+    if(!!parsed.page) actualPage = Number(parsed.page)
+    if(!!parsed.term) actualFilter = {...actualFilter, term: parsed.term }
+    if(!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false }
+    dispatch(getUsers(actualPage, pageSize, actualFilter))
 }, [])
+
+useEffect(() => {
+    history.push({
+        pathname: "/users",
+        search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+    })
+}, [filter, currentPage])
 
 const onPageChanged = (pageNumber: number) => {
     dispatch(getUsers(pageNumber, pageSize, filter))
@@ -32,15 +51,6 @@ const unFollow = (userId: number) => {
 const follow = (userId: number) => {
     dispatch(follow(userId))
 }
-
-const usersPage = useSelector(getUsersData)
-const pageSize = useSelector(getPageSize)
-const totalUsersCount = useSelector(getTotalUsersCount)
-const currentPage = useSelector(getCurrentPage)
-const followingInProgress = useSelector(getFollowingInProgress)
-const filter = useSelector(getUsersFilter)
-
-
 
 export const Users: React.FC<PropsType> = (props) => {
 
