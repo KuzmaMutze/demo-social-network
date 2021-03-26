@@ -11,48 +11,49 @@ type PropsType = {
 
 }
 
-const dispatch = useDispatch()
-const history = useHistory()
 
-
-const usersPage = useSelector(getUsersData)
-const pageSize = useSelector(getPageSize)
-const totalUsersCount = useSelector(getTotalUsersCount)
-const currentPage = useSelector(getCurrentPage)
-const followingInProgress = useSelector(getFollowingInProgress)
-const filter = useSelector(getUsersFilter)
-
-useEffect(() => {
-    const parsed = queryString.parse(history.location.search.substr(1)) as {term: string; page: string; friend: string};
-    let actualPage = currentPage
-    let actualFilter = filter
-    if(!!parsed.page) actualPage = Number(parsed.page)
-    if(!!parsed.term) actualFilter = {...actualFilter, term: parsed.term }
-    if(!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false }
-    dispatch(getUsers(actualPage, pageSize, actualFilter))
-}, [])
-
-useEffect(() => {
-    history.push({
-        pathname: "/users",
-        search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-    })
-}, [filter, currentPage])
-
-const onPageChanged = (pageNumber: number) => {
-    dispatch(getUsers(pageNumber, pageSize, filter))
-}
-const onFilterChanged = (filter: FilterType) => {
-    dispatch(getUsers(1, pageSize, filter))
-}
-const unFollow = (userId: number) => {
-    dispatch(unFollow(userId))
-}
-const follow = (userId: number) => {
-    dispatch(follow(userId))
-}
 
 export const Users: React.FC<PropsType> = (props) => {
+
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const usersPage = useSelector(getUsersData)
+    const pageSize = useSelector(getPageSize)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const followingInProgress = useSelector(getFollowingInProgress)
+    const filter = useSelector(getUsersFilter)
+
+    useEffect(() => {
+        const parsed = queryString.parse(history.location.search.substr(1)) as {term: string; page: string; friend: string};
+        let actualPage = currentPage
+        let actualFilter = filter 
+        if(!!parsed.page) actualPage = Number(parsed.page)
+        if(!!parsed.term) actualFilter = {...actualFilter, term: parsed.term }
+        if(!!parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false }
+        dispatch(getUsers(actualPage, pageSize, actualFilter))
+    }, [])
+
+    useEffect(() => {
+        history.push({
+            pathname: "/users",
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+    }, [filter, currentPage])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsers(pageNumber, pageSize, filter))
+    }
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsers(1, pageSize, filter))
+    }
+    const unFollow = (userId: number) => {
+        dispatch(unFollow(userId))
+    }
+    const follow = (userId: number) => {
+        dispatch(follow(userId))
+    }
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
 

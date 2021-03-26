@@ -16,14 +16,14 @@ type FormType = {
 	friend: FriendFormType
 }
 
-const filter = useSelector(getUsersFilter)
+const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 
-const usersSearchFormValidate = (values: any) => {
+	const filter = useSelector(getUsersFilter)
+
+	const usersSearchFormValidate = (values: any) => {
 	const errors = {};
 	return errors;
 }
-
-const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 	const submit = (values: FormType, { setSubmitting }: {setSubmitting: (setSubmitting: boolean) => void}) => {
 	const filter = {
 		term: values.term,
