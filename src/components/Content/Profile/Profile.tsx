@@ -10,7 +10,6 @@ import { ProfileType, ContactsType } from '../../../types/types';
 type PropsType = {
     profile: ProfileType | null
     savePhoto: (file: File) => void
-    // saveProfileInfoI: () => void
     isOwner: boolean
     status: string
     updateStatusProfile: (status: string) => void

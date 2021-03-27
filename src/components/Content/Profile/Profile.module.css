@@ -31,9 +31,9 @@
   background: rgb(255,255,255);
   background: linear-gradient(to right bottom, #65dfc9, #6cdbed);
   cursor: pointer;
-}
+} 
 
-.upload:hover, .upload:focus, .upload:active {
+ .upload:hover, .upload:focus, .upload:active {
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
 }

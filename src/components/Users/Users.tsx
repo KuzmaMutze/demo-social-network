@@ -11,8 +11,6 @@ type PropsType = {
 
 }
 
-
-
 export const Users: React.FC<PropsType> = (props) => {
 
     const dispatch = useDispatch()
