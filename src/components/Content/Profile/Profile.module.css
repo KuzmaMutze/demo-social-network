@@ -6,6 +6,7 @@
 }
 
 .items{
+  font-size: 17px;
   margin-right: 50px;
 }
 
@@ -14,28 +15,18 @@
 }
 
 .upload{
+  text-align: center;
   display: inline-block;
-  width: 115px;
-  height: 25px;
-  padding:5px 13px;
-  margin-bottom: 15px;
+  width:115px;
+  height: 30px;
   border-radius:1rem;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  background: rgb(255,255,255);
-  background: linear-gradient(to right bottom, #65dfc9, #6cdbed);
   cursor: pointer;
+  transition: all 0.5s;
 } 
 
  .upload:hover, .upload:focus, .upload:active {
-  -webkit-transform: scale(0.9);
-  transform: scale(0.9);
+  color: #fff;
+  background-color: #000;
 }
 
 .statusUpload:hover{
@@ -117,4 +108,8 @@
     width: 90px;
     padding-top: 12px;
   }
+}
+
+.status {
+  margin: 20px 0;
 }

@@ -4,6 +4,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
 import {Textarea} from "../../common/FormsControls/FormsControls"
 import { PostDataType } from '../../../types/types';
+import { Button } from 'antd';
 
 type PropsType = {
     postData: Array<PostDataType>
@@ -23,7 +24,7 @@ const MyPosts: React.FC<PropsType> = (props) => {
             <div className={classes.newPost}>
                 <ReduxFormAddPost onSubmit={onAddPost}/>
             </div>
-            <div className={classes.newPost}>
+            <div className={classes.titleNewPost}>
                 <b>My posts</b>
             </div> 
             <div>
@@ -44,7 +45,7 @@ const FormAddPost: React.FC<InjectedFormProps<FormAddPostValueType, FormAddPostO
     return <div>
         <form onSubmit={props.handleSubmit}>
             <Field className={classes.textarea} name={"addedPostElement"} placeholder="Write a new post" component={Textarea} validate={[required, maxLenghtCreacter15]} />
-            <button className={classes.newPost__button}>Send</button>
+            <Button type="primary">Send</Button>
         </form>
     </div>
 }

@@ -2,6 +2,7 @@ import { Field, InjectedFormProps, reduxForm } from "redux-form"
 import { maxLenghtCreacter, required } from "../../../utils/validators/validatirs";
 import classes from './Profile.module.css';
 import { ProfileType } from "../../../types/types";
+import { Button } from 'antd';
 
 let maxLenghtCreacter15 = maxLenghtCreacter(15);
 
@@ -11,17 +12,17 @@ type PropsType = {
 }
 
 type ProfileDataFormValueType = {
-    // fullName: string
-    // aboutMe: string
-    // lookingForAJob: string
-    // contacts: string
-    // lookingForAJobDescription: string
+    fullName: string
+    aboutMe: string
+    lookingForAJob: string
+    contacts: string
+    lookingForAJobDescription: string
 }
 // todo: creact key contacts
 
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValueType, PropsType> & PropsType> = ({handleSubmit, profile, isOwner, error}) => {
     return <form onSubmit={handleSubmit}>
-        <div>
+        <div className={classes.wrapper}>
             {error && <div className={classes.error}>{error}</div>}
             <div>
                 <b>User Name</b>: <Field className={classes.contactsInput} placeholder="Full name" name="fullName" component="input" />
@@ -44,7 +45,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValueType, Prop
             <div><b>Description:</b> 
                 <Field className={classes.contactsInput} placeholder="Description" name="lookingForAJobDescription" component="input" />
             </div>
-            {isOwner && <button className={classes.submitContacts}>Save</button>}
+            {isOwner && <Button type="primary">Save</Button>}
         </div>
     </form>
 }

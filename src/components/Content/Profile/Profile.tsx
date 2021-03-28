@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
 import React from "react";
 import { ProfileType, ContactsType } from '../../../types/types';
+import { Button } from 'antd';
 
 type PropsType = {
     profile: ProfileType | null
@@ -83,7 +84,7 @@ const ProfileData: React.FC<PropsTypeForProfileData> = ({profile, isOwner, goToE
                     <div className={classes.profileDataItems}><b>I find work:</b> {profile.lookingForAJob ? "Yes" : "No"}</div>
                     <div className={classes.profileDataItems}><b>Description:</b> {profile.lookingForAJobDescription}</div>
                 </div>
-                {isOwner && <button className={classes.editContacts} onClick={goToEditMode}>Edit</button>}
+                {isOwner && <Button type="primary" onClick={goToEditMode}>Edit</Button>}
     </div>
 }
 

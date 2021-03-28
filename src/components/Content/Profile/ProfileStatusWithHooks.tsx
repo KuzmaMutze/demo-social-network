@@ -30,10 +30,10 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.status}>
             {editMode ?
 
-                <div>
+                <div >  
                     Status: <input onChange={onStatusChange} onBlur={disableMode} onClick={disableMode} value={status} autoFocus={true}></input>
                 </div>
 

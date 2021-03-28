@@ -3,7 +3,7 @@ import classes from "./users.module.css";
 import userPhoto from "../../assets/img/1.png";
 import { NavLink, useHistory } from "react-router-dom";
 import UsersSearchForm from "./UsersSearchForm/UsersSearchForm";
-import { FilterType, getUsers } from "../../redux/users-reducer";
+import { FilterType, follow, getUsers, unFollow } from "../../redux/users-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsersData, getUsersFilter } from "../../redux/selectors/users-selectors";
 import queryString from 'query-string';
@@ -46,10 +46,10 @@ export const Users: React.FC<PropsType> = (props) => {
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsers(1, pageSize, filter))
     }
-    const unFollow = (userId: number) => {
+    const unFollowCallBack = (userId: number) => {
         dispatch(unFollow(userId))
     }
-    const follow = (userId: number) => {
+    const followCallBack = (userId: number) => {
         dispatch(follow(userId))
     }
 
@@ -98,8 +98,8 @@ export const Users: React.FC<PropsType> = (props) => {
                 </span>
                 <div>
                     {u.followed
-                        ? <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { unFollow(u.id) }}>unFollow</button>
-                        : <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { follow(u.id) }}>Follow</button>}
+                        ? <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { unFollowCallBack(u.id) }}>unFollow</button>
+                        : <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { followCallBack(u.id) }}>Follow</button>}
                 </div>
             </span>
         </div>)
