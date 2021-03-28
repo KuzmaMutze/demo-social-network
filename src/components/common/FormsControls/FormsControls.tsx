@@ -1,4 +1,5 @@
-import { WrappedFieldProps } from "redux-form"
+import { WrappedFieldProps, Field } from "redux-form"
+import { FieldValidatorType } from "../../../utils/validators/validatirs"
 import classes from "./FormsControl.module.css"
 
 // WrappedFieldProps from redux-form for type input, meta
@@ -15,3 +16,19 @@ export const Input: React.FC<WrappedFieldProps> = ({input, meta, ...props}) => {
         <div>{meta.touched && meta.error}</div>
     </div>
 }
+
+export function createField<FormKeysType extends string>(placeholder: string | undefined,
+    name: FormKeysType,
+    validators: Array<FieldValidatorType>,
+    component: React.FC<WrappedFieldProps>,
+    props = {}, text = "") {
+    return <div>
+    <Field  placeholder={placeholder} name={name}
+            validate={validators}
+            component={component}
+            {...props}
+            /> {text}
+    </div>
+}
+
+export type GetStringKeys<T> = Extract<keyof T, string>

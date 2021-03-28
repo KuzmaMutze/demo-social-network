@@ -7,6 +7,7 @@ import { FilterType, follow, getUsers, unFollow } from "../../redux/users-reduce
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsersData, getUsersFilter } from "../../redux/selectors/users-selectors";
 import queryString from 'query-string';
+import { Button } from "antd";
 type PropsType = {
 
 }
@@ -70,7 +71,7 @@ export const Users: React.FC<PropsType> = (props) => {
         <UsersSearchForm onFilterChanged={onFilterChanged}/>
         <div className={classes.paginator}>
             {
-                portionNumber > 1 && <button className={classes.buttonDefult} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
+                portionNumber > 1 && <Button type="primary" className={classes.buttonDefult} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</Button>
             }
 
             {pages.filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -80,7 +81,7 @@ export const Users: React.FC<PropsType> = (props) => {
             }
 
             {
-                portionCount > portionNumber && <button className={classes.buttonDefult} onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>
+                portionCount > portionNumber && <Button type="primary" className={classes.buttonDefult} onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</Button>
             }
         </div>
         {
@@ -98,8 +99,8 @@ export const Users: React.FC<PropsType> = (props) => {
                 </span>
                 <div>
                     {u.followed
-                        ? <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { unFollowCallBack(u.id) }}>unFollow</button>
-                        : <button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { followCallBack(u.id) }}>Follow</button>}
+                        ? <Button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { unFollowCallBack(u.id) }}>unFollow</Button>
+                        : <Button className={classes.button} disabled={followingInProgress.some(id => id === u.id)} onClick={() => { followCallBack(u.id) }}>Follow</Button>}
                 </div>
             </span>
         </div>)

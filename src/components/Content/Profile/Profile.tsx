@@ -50,8 +50,8 @@ const Content: React.FC<PropsType> = (props) => {
                     <ProfileStatusWithHooks status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                 </div>
                 <div className={classes.info}>
-                    {/* @ts-ignore */}
-                    {editMode ? <ProfileDataReduxForm submit={onSubmit} initialValues={props.profile} profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {setEditMode(false)}}/> 
+                    
+                    {editMode ? <ProfileDataReduxForm onSubmit={onSubmit} initialValues={props.profile} profile={props.profile} isOwner={props.isOwner} /> 
                     : <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => {setEditMode(true)}}/>}
                 </div>
             </div>

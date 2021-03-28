@@ -2,7 +2,7 @@ import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
-import {Textarea} from "../../common/FormsControls/FormsControls"
+import {createField, GetStringKeys, Textarea} from "../../common/FormsControls/FormsControls"
 import { PostDataType } from '../../../types/types';
 import { Button } from 'antd';
 
@@ -41,11 +41,13 @@ export type FormAddPostValueType = {
     addedPostElement: string
 }
 type FormAddPostOwnPropsType = {}
+type FormAddPostValueKeysType = GetStringKeys<FormAddPostValueType>
+
 const FormAddPost: React.FC<InjectedFormProps<FormAddPostValueType, FormAddPostOwnPropsType> & FormAddPostOwnPropsType> = (props) => {
     return <div>
         <form onSubmit={props.handleSubmit}>
-            <Field className={classes.textarea} name={"addedPostElement"} placeholder="Write a new post" component={Textarea} validate={[required, maxLenghtCreacter15]} />
-            <Button type="primary">Send</Button>
+            <div className={classes.textarea}>{createField<FormAddPostValueKeysType>("Write a new post", "addedPostElement", [required, maxLenghtCreacter15], Textarea)}</div>
+            <button>Send</button>
         </form>
     </div>
 }
