@@ -3,7 +3,7 @@ import React from "react"
 type PropsType = {
     message: MessageType
 }
-type MessageType = {
+export type MessageType = {
     message: string
     photo: string
     userId: number

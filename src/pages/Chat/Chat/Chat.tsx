@@ -3,15 +3,13 @@ import { AddMessageForm } from "./AddMessageForm";
 import { Messages } from "./Messages";
 
 type PropsType = {
-    
+    wsChannel: WebSocket
 }
 export const Chat: React.FC<PropsType> = (props) => {
 
   return (
     <div>
-        {/* @ts-ignore */}
       <Messages wsChannel={props.wsChannel}/>
-      {/* @ts-ignore */}
       <AddMessageForm wsChannel={props.wsChannel}/>
     </div>
   )

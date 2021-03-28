@@ -1,16 +1,16 @@
-import { MessageType } from "antd/lib/message";
 import React, { useEffect, useState } from "react"
-import { Message } from "./Message";
+import { Message, MessageType } from "./Message";
 
 
 
-type PropsType = {}
+type PropsType = {
+    wsChannel: WebSocket
+}
 export const Messages: React.FC<PropsType> = (props) => {
 
     const [messages, setMessages] = useState<MessageType[]>([])
 
     useEffect(() => {
-        {/* @ts-ignore */}
         props.wsChannel.addEventListener('message', (e: MessageEvent) => {
             let newMessages = JSON.parse(e.data)
             setMessages((prevMessages) => [...prevMessages, ...newMessages])

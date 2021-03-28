@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react"
 
 
 
-type PropsType = {}
+type PropsType = {
+  wsChannel: WebSocket
+}
 export const AddMessageForm: React.FC<PropsType> = (props) => {
 
-  const [message, setMessage] = useState()
+  const [message, setMessage] = useState<string>()
 
   const sendMessage = () => {
     if (!message){
       return
     }else {
-      {/* @ts-ignore */}
       props.wsChannel.send(message)
     }
   }
@@ -20,7 +21,6 @@ export const AddMessageForm: React.FC<PropsType> = (props) => {
   return (
     <div>
       <div style={{marginTop: "30px"}}>
-              {/* @ts-ignore */}
           <input onChange={(e) => setMessage(e.currentTarget.value)} value={message} style={{width: "100%", height: "45px"}} type="text"/>
       </div>
       <div>

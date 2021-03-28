@@ -7,8 +7,7 @@ type PropsType = {}
 export const ChatPage:React.FC<PropsType> = (props) => {
   return (
     <div>
-      {/* @ts-ignore */}
-        <Chat wsChannel={wsChannel}/>
+      <Chat wsChannel={wsChannel}/>
     </div>
   )
 };
