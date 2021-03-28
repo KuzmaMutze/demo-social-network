@@ -19,13 +19,14 @@ import { AppHeader } from './components/Header/Header';
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
 
-// import Dialogs from './components/Dialogs/Dialogs';
-// import ContentContainer from './components/Content/ContentContainer';
+// export components's must be defaults
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
 const ContentContainer = React.lazy(() => import('./components/Content/ContentContainer'));
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 
 const WithSuspensHocDialogs = withSuspensHoc(Dialogs)
 const WithSuspensHocContentContainer = withSuspensHoc(ContentContainer)
+const WithSuspensHocChatPage = withSuspensHoc(ChatPage)
 
 type PropsType = {
 	initializeApp: () => void
@@ -69,19 +70,22 @@ class App extends React.Component<PropsType> {
 							<NavLink to="/messages">Messages</NavLink>
 						</Menu.Item>
 						<Menu.Item key="3">
-							<NavLink to="/messages"><NavLink to="/music">Music</NavLink></NavLink>
+							<NavLink to="/music">Music</NavLink>
 						</Menu.Item>
 						<Menu.Item key="4">
-							<NavLink to="/messages"><NavLink to="/news">News</NavLink></NavLink>
+							<NavLink to="/news">News</NavLink>
+						</Menu.Item>
+						<Menu.Item key="5">
+							<NavLink to="/chat">Chat</NavLink>
 						</Menu.Item>
 					</SubMenu>
 					<SubMenu key="sub2" icon={<LaptopOutlined />} title="Developers">
-						<Menu.Item key="5">
+						<Menu.Item key="6">
 							<NavLink to="/users">Developers</NavLink>
 						</Menu.Item>
 					</SubMenu>
 					<SubMenu key="sub3" icon={<SettingOutlined />} title="Tools">
-						<Menu.Item key="6">
+						<Menu.Item key="7">
 							<NavLink to="/setting">Setting</NavLink>
 						</Menu.Item>
 					</SubMenu>
@@ -98,6 +102,7 @@ class App extends React.Component<PropsType> {
 						<Route path="/setting" component={ () => <Setting />}/>
 						<Route path="/profile/:userId?" component={ () => <WithSuspensHocContentContainer/> }/>
 						<Route path="/users" component={ () => <UsersPage/>}/>
+						<Route path="/chat" component={ () => <WithSuspensHocChatPage/>}/>
 						<Route path="*" component={() => <div>404 NOT FOUND</div>}/> 
 					</Switch>
 
