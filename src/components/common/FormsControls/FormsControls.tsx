@@ -6,14 +6,14 @@ import classes from "./FormsControl.module.css"
 export const Textarea: React.FC<WrappedFieldProps> = ({input, meta, ...props}) => {
     return <div className={meta.touched && meta.error && classes.error}>
         <textarea  {...props} {...input} name="" id="" cols={60} rows={5}></textarea>
-        <div>{meta.touched && meta.error}</div>
+        <div className={classes.errorMessage}>{meta.touched && meta.error}</div>
     </div>
 }
 
 export const Input: React.FC<WrappedFieldProps> = ({input, meta, ...props}) => {
     return <div className={meta.touched && meta.error && classes.error}>
         <input  {...props} {...input}></input>
-        <div>{meta.touched && meta.error}</div>
+        <div className={classes.errorMessage}>{meta.touched && meta.error}</div>
     </div>
 }
 

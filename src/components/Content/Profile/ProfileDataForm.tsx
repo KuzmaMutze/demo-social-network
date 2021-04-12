@@ -1,4 +1,4 @@
-import { Field, InjectedFormProps, reduxForm } from "redux-form"
+import { InjectedFormProps, reduxForm } from "redux-form"
 import { maxLenghtCreacter, required } from "../../../utils/validators/validatirs";
 import classes from './Profile.module.css';
 import { ProfileType } from "../../../types/types";
@@ -21,12 +21,10 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
             <div>
                 <b>User Name</b>:
                 {createField<ProfileDataFormValueTypeKeys>("Full name", "fullName", [], Input)}
-                 {/* <Field className={classes.contactsInput} placeholder="Full name" name="fullName" component="input" /> */}
             </div>
             <div>
                 <b>About me:</b>
                 {createField<ProfileDataFormValueTypeKeys>("About me", "aboutMe", [], Input)}
-                 {/* <Field className={classes.contactsInput} placeholder="About me" name="aboutMe" component="input"  /> */}
             </div>
                 <br/>
             <div>
@@ -38,12 +36,8 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
                 })}                
             </div>
                 <br/>
-            <div><b>I find work:</b>{createField<ProfileDataFormValueTypeKeys>('', "lookingForAJob", [], Input, {type: "checkbox"})}
-                {/* <Field className={classes.contactsInput} name="lookingForAJob" type="checkbox" component="input"/> */}
-            </div>
-            <div><b>Description:</b> {createField<ProfileDataFormValueTypeKeys>("Description", "lookingForAJobDescription", [], Input)}
-                {/* <Field className={classes.contactsInput} placeholder="Description" name="lookingForAJobDescription" component="input" /> */}
-            </div>
+            <div><b>I find work:</b>{createField<ProfileDataFormValueTypeKeys>('', "lookingForAJob", [], Input, {type: "checkbox"})}</div>
+            <div><b>Description:</b> {createField<ProfileDataFormValueTypeKeys>("Description", "lookingForAJobDescription", [], Input)}</div>
             {isOwner && <button>Save</button>}
         </div>
     </form>

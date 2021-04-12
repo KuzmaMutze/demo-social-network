@@ -4,14 +4,21 @@
   width: 130px;
   height: 130px;
 }
-
-.items{
-  font-size: 17px;
-  margin-right: 50px;
-}
-
 .upload input{
   visibility: hidden;
+}
+
+.statusUpload:hover{
+  color:#658ec6;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+
+
+/* .items{
+  font-size: 17px;
+  margin-right: 50px;
 }
 
 .upload{
@@ -29,11 +36,7 @@
   background-color: #000;
 }
 
-.statusUpload:hover{
-  color:#658ec6;
-  transition: all 0.3s;
-  cursor: pointer;
-}
+
 
 .editContacts{
   margin-top: 30px;
@@ -112,4 +115,4 @@
 
 .status {
   margin: 20px 0;
-}
+} */

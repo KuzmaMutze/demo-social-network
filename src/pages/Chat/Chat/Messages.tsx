@@ -4,22 +4,29 @@ import { Message, MessageType } from "./Message";
 
 
 type PropsType = {
-    wsChannel: WebSocket
+  wsChannel: WebSocket | null
 }
 export const Messages: React.FC<PropsType> = (props) => {
 
     const [messages, setMessages] = useState<MessageType[]>([])
 
     useEffect(() => {
-        props.wsChannel.addEventListener('message', (e: MessageEvent) => {
-            let newMessages = JSON.parse(e.data)
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        })
-    }, [])
+
+      let messageHandler = (e: MessageEvent) => {
+        let newMessages = JSON.parse(e.data)
+        setMessages((prevMessages) => [...prevMessages, ...newMessages])
+      }
+
+        props.wsChannel?.addEventListener('message', messageHandler)
+
+        return () => {
+          props.wsChannel?.removeEventListener('message', messageHandler)
+        }
+    }, [props.wsChannel])
 
   return (
     <div style={{height: "500px", overflowY: "auto"}}>
-      {messages.map((m: any, index) => <Message key={index} message={m}/>)}
+      {messages.map((m, index) => <Message key={index} message={m}/>)}
     </div>
   )
 };

@@ -34,10 +34,11 @@ type AddMessageFormValueType = {
 }
 type AddMessageFormOwnProps = {}
 
+
 const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormValueType, AddMessageFormOwnProps> & AddMessageFormOwnProps> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <Field className={classes.messages} component={Input} name="newMessageElement" placeholder="Enter your messeage" validate={[required, maxLenghtCreacter20]}/>
-        <Button type="primary">Send</Button>
+        <button>Send</button>
     </form>
 }
 

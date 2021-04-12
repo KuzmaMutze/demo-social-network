@@ -66,25 +66,25 @@ type PropsTypeForProfileData = {
 }
 
 const ProfileData: React.FC<PropsTypeForProfileData> = ({profile, isOwner, goToEditMode}) => {
-    return <div>
+    return <div className={classes.wrapper}>
         <div className={classes.profileDataItems}>
            <b>User Name:</b> {profile.fullName}
         </div>
-                <div className={classes.profileDataItems}>
-                    <b>About me:</b> {profile.aboutMe}
-                </div>
-                <br/>
-                <div>
-                    <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
-                    })}                
-                </div>
-                <br/>
-                <div>
-                    <div className={classes.profileDataItems}><b>I find work:</b> {profile.lookingForAJob ? "Yes" : "No"}</div>
-                    <div className={classes.profileDataItems}><b>Description:</b> {profile.lookingForAJobDescription}</div>
-                </div>
-                {isOwner && <Button type="primary" onClick={goToEditMode}>Edit</Button>}
+        <div className={classes.profileDataItems}>
+            <b>About me:</b> {profile.aboutMe}
+        </div>
+        <br/>
+        <div>
+            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+            })}                
+        </div>
+        <br/>
+        <div>
+            <div className={classes.profileDataItems}><b>I find work:</b> {profile.lookingForAJob ? "Yes" : "No"}</div>
+            <div className={classes.profileDataItems}><b>Description:</b> {profile.lookingForAJobDescription}</div>
+        </div>
+        {isOwner && <Button type="primary" onClick={goToEditMode}>Edit</Button>}
     </div>
 }
 

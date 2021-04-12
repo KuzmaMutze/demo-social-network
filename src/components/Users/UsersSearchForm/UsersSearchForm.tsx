@@ -1,3 +1,4 @@
+import Button from 'antd/lib/button';
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -43,15 +44,15 @@ const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 				>
                     {({ isSubmitting }) => (
                         <Form>
-                            <Field type="text" name="term" />
-                            <Field as="select" name="friend">
+                            <Field type="text" name="term" style={{border: "none"}} />
+                            <Field as="select" name="friend" >
                                 <option value="null">All</option>
                                 <option value="false">Only unfollowed</option>
                                 <option value="true">Only followed</option>
                             </Field>
-                            <button type="submit" disabled={isSubmitting}>
+                            <Button type="primary" htmlType="submit" disabled={isSubmitting}>
                                     Submit
-                            </button>
+                            </Button>
                         </Form>
                     )}
 		    	</Formik>

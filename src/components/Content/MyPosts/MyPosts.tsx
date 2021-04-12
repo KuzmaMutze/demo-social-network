@@ -4,7 +4,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
 import {createField, GetStringKeys, Textarea} from "../../common/FormsControls/FormsControls"
 import { PostDataType } from '../../../types/types';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 
 type PropsType = {
     postData: Array<PostDataType>
