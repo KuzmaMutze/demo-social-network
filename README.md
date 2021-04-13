@@ -1,4 +1,4 @@
-# Social Network, TypeScript + React + Redux + Antd +
+# Social Network, TypeScript + React + Redux + Antd
 Социальная сеть сделана как single page application, архитектура приложения состоит из:
 1) UI(User Interface) - components
 2) BLL(Business Logic Layer) - redux
