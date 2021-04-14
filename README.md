@@ -2,11 +2,12 @@
 
 Документацию о проекте буду дополнять
 
-<a href="https://kuzmamutze.github.io/demo-social-network">Затестить</a>
+<a href="https://kuzmamutze.github.io/demo-social-network">Затестить 👀</a>
 
 Можете воспользоваться тестовым аккаунтом для проверки моей работы:
-Email: free@samuraijs.com
-Password: free
+
+Email: free@samuraijs.com <br>
+Password: free <br>
 #
 Социальная сеть сделана как single page application, архитектура приложения состоит из:
 1) UI(User Interface) - components
