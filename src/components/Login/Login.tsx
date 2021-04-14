@@ -1,12 +1,19 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form"
-import {Input} from "../common/FormsControls/FormsControls"
+// import {Input} from "../common/FormsControls/FormsControls"
+
 import { required, maxLenghtCreacter } from '../../utils/validators/validatirs';
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
 import { AppStateType } from "../../redux/redux-store";
+import {
+    TextField,
+    CheckboxField
+    // @ts-ignore
+  } from 'redux-form-antd'
+import { Button } from "antd";
 
 type LoginFormOwnProps = {
     captchaUrl: string | null
@@ -18,18 +25,18 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
     
     return <div>
         <form onSubmit={props.handleSubmit}>
-            <div><Field className={classes.formLogin} placeholder={"Email"} name={"email"} component={Input} validate={[required, maxLenghtCreacter15]}/></div>
-            <div><Field className={classes.formLogin} placeholder={"Password"} name={"password"} type="password" component={Input} validate={[required, maxLenghtCreacter15]}/></div> 
-            <div><Field className={classes.formLogin} component={"input"} name={"rememberMe"} type="checkbox"/> Remember me</div>
+            <div><Field style={{width: "300px"}} placeholder={"Email"} name={"email"} component={TextField} validate={[required, maxLenghtCreacter15]}/></div>
+            <div><Field style={{width: "300px"}} placeholder={"Password"} name={"password"} type="password" component={TextField} validate={[required, maxLenghtCreacter15]}/></div> 
+            <div><Field label="Remember me" component={CheckboxField} name={"rememberMe"}/></div>
             {
                 props.error ? <div>{props.error}</div> : ""
             }
             
-            <div><button className={classes.buttonLogin}>Sing in</button></div>
+            <div className={classes.buttonLogin}><Button type="primary" htmlType="submit" >Sing in</Button></div>
             {
                 props.captchaUrl && <div>
                     <img src={props.captchaUrl} alt="captcha"/>
-                    <Field className={classes.formLogin} placeholder="Captcha" name="captcha" component={Input} validate={[required]}/>
+                    <Field className={classes.formLogin} placeholder="Captcha" name="captcha" component={TextField} validate={[required]}/>
                 </div>
             }
             
@@ -64,7 +71,7 @@ export const Login: React.FC = (props) => {
     }
 
     return <div className={classes.login}>
-        <h1>Login</h1>
+        <h1 className={classes.title}>Login</h1>
         <ReduxLoginForm captchaUrl={captchaUrl} onSubmit={onSubmit}/>
     </div>
     
