@@ -1,9 +1,10 @@
 import Button from 'antd/lib/button';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUsersFilter } from '../../../redux/selectors/users-selectors';
 import { FilterType } from '../../../redux/users-reducer';
+import { Select, Input } from 'formik-antd';
 
 type PropsType = {
 		onFilterChanged: (filter: FilterType) => void
@@ -44,12 +45,12 @@ const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
 				>
                     {({ isSubmitting }) => (
                         <Form>
-                            <Field type="text" name="term" style={{border: "none"}} />
-                            <Field as="select" name="friend" >
+                            <Input type="text" name="term" style={{width: "200px"}} />
+                            <Select style={{width: "150px"}} name="friend" >
                                 <option value="null">All</option>
                                 <option value="false">Only unfollowed</option>
                                 <option value="true">Only followed</option>
-                            </Field>
+                            </Select>
                             <Button type="primary" htmlType="submit" disabled={isSubmitting}>
                                     Submit
                             </Button>

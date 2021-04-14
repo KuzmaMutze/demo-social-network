@@ -6,7 +6,9 @@ import { ChangeEvent, useState } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
 import React from "react";
 import { ProfileType, ContactsType } from '../../../types/types';
-import { Button } from 'antd';
+import { Button, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { RcFile } from 'antd/lib/upload';
 
 type PropsType = {
     profile: ProfileType | null
@@ -26,9 +28,10 @@ const Content: React.FC<PropsType> = (props) => {
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length){
-            props.savePhoto(e.target.files[0]);
+    const onMainPhotoSelected = (e: RcFile) => {
+        debugger
+        if (e){
+            props.savePhoto(e);
         }
     }
 
@@ -46,7 +49,15 @@ const Content: React.FC<PropsType> = (props) => {
             <div className={classes.items}>
                 <div className={classes.info}>
                     <img src={props.profile.photos.large || userPhoto } className={classes.avatar} alt="avatar"/>
-                    {props.isOwner && <label className={classes.upload}>Upload avatar<input type="file" onChange={onMainPhotoSelected}/></label>}
+                    <Upload
+                    // @ts-ignore
+                    action={onMainPhotoSelected}
+                    listType="picture"
+                    maxCount={1}
+                    >
+                        <Button style={{marginLeft: "20px"}} icon={<UploadOutlined />}>Upload</Button>
+                    </Upload>
+                    {/* {props.isOwner && <label className={classes.upload}>Upload avatar<input type="file" onChange={onMainPhotoSelected}/></label>} */}
                     <ProfileStatusWithHooks status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                 </div>
                 <div className={classes.info}>

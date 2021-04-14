@@ -4,7 +4,11 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
 import {createField, GetStringKeys, Textarea} from "../../common/FormsControls/FormsControls"
 import { PostDataType } from '../../../types/types';
-import { Button, Input } from 'antd';
+import { Button, Form } from 'antd';
+import {
+    TextAreaField,
+    // @ts-ignore
+  } from 'redux-form-antd'
 
 type PropsType = {
     postData: Array<PostDataType>
@@ -46,8 +50,8 @@ type FormAddPostValueKeysType = GetStringKeys<FormAddPostValueType>
 const FormAddPost: React.FC<InjectedFormProps<FormAddPostValueType, FormAddPostOwnPropsType> & FormAddPostOwnPropsType> = (props) => {
     return <div>
         <form onSubmit={props.handleSubmit}>
-            <div className={classes.textarea}>{createField<FormAddPostValueKeysType>("Write a new post", "addedPostElement", [required, maxLenghtCreacter15], Textarea)}</div>
-            <button>Send</button>
+                {createField<FormAddPostValueKeysType>("Write a new post", "addedPostElement", [required, maxLenghtCreacter15], TextAreaField)}
+                <Button type="primary" htmlType="submit">Send</Button>
         </form>
     </div>
 }

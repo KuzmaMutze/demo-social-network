@@ -14,7 +14,21 @@
   cursor: pointer;
 }
 
+.input{
+  width: 300px;
+}
 
+.input div {
+  margin: 0px;
+}
+
+.btn_contact{
+  margin-top: 20px;
+}
+
+.wrapper{
+  margin-top: 20px;
+}
 
 /* .items{
   font-size: 17px;

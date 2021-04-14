@@ -4,6 +4,11 @@ import classes from './Profile.module.css';
 import { ProfileType } from "../../../types/types";
 import { Button } from 'antd';
 import { createField, GetStringKeys, Input } from "../../common/FormsControls/FormsControls";
+import {
+    CheckboxField,
+    TextField,
+    // @ts-ignore
+  } from 'redux-form-antd'
 
 let maxLenghtCreacter15 = maxLenghtCreacter(15);
 
@@ -18,27 +23,27 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
     return <form onSubmit={handleSubmit}>
         <div className={classes.wrapper}>
             {error && <div className={classes.error}>{error}</div>}
-            <div>
+            <div className={classes.input}>
                 <b>User Name</b>:
-                {createField<ProfileDataFormValueTypeKeys>("Full name", "fullName", [], Input)}
+                {createField<ProfileDataFormValueTypeKeys>("Full name", "fullName", [], TextField)}
             </div>
-            <div>
+            <div className={classes.input}>
                 <b>About me:</b>
-                {createField<ProfileDataFormValueTypeKeys>("About me", "aboutMe", [], Input)}
+                {createField<ProfileDataFormValueTypeKeys>("About me", "aboutMe", [], TextField)}
             </div>
                 <br/>
-            <div>
-                <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            <div className={classes.input}>
+                <div style={{marginBottom: "15px", fontSize: "18px"}}><b>Contacts</b>:</div> {Object.keys(profile.contacts).map(key => {
                 return <div key={key}>
-                    <b>{key}: {createField(key, "contacts." + key, [], Input)}</b>
+                    <b>{key}: {createField(key, "contacts." + key, [], TextField)}</b>
                     {/* todo: create some solution for embedded objects*/}
                 </div>
                 })}                
             </div>
                 <br/>
-            <div><b>I find work:</b>{createField<ProfileDataFormValueTypeKeys>('', "lookingForAJob", [], Input, {type: "checkbox"})}</div>
-            <div><b>Description:</b> {createField<ProfileDataFormValueTypeKeys>("Description", "lookingForAJobDescription", [], Input)}</div>
-            {isOwner && <button>Save</button>}
+            <div className={classes.input}><b>I find work:</b>{createField<ProfileDataFormValueTypeKeys>('', "lookingForAJob", [], CheckboxField)}</div>
+            <div className={classes.input}><b>Description:</b> {createField<ProfileDataFormValueTypeKeys>("Description", "lookingForAJobDescription", [], TextField)}</div>
+            {isOwner && <Button className={classes.btn_contact} htmlType="submit" type="primary">Save</Button>}
         </div>
     </form>
 }

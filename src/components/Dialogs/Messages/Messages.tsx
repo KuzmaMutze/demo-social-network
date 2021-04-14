@@ -5,6 +5,10 @@ import {Input} from "../../common/FormsControls/FormsControls"
 import { required, maxLenghtCreacter } from '../../../utils/validators/validatirs';
 import { MessagesDataType } from "../../../redux/dialogs-reducer";
 import { Button } from "antd";
+import {
+    TextField,
+    // @ts-ignore
+  } from 'redux-form-antd'
 
 type PropsType = {
     messagesData: Array<MessagesDataType>
@@ -37,8 +41,8 @@ type AddMessageFormOwnProps = {}
 
 const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormValueType, AddMessageFormOwnProps> & AddMessageFormOwnProps> = (props) => {
     return <form onSubmit={props.handleSubmit}>
-        <Field className={classes.messages} component={Input} name="newMessageElement" placeholder="Enter your messeage" validate={[required, maxLenghtCreacter20]}/>
-        <button>Send</button>
+        <Field className={classes.messages} component={TextField} name="newMessageElement" placeholder="Enter your messeage" validate={[required, maxLenghtCreacter20]}/>
+        <Button type="primary" htmlType="submit">Send</Button>
     </form>
 }
 

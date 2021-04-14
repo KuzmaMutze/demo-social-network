@@ -1,3 +1,4 @@
+import classes from "*.module.css";
 import { type } from "os";
 import React, { ChangeEvent } from "react";
 
@@ -38,7 +39,6 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
     }
 
     componentDidUpdate(prevProps: PropsType, prevState: StateType) {
-        debugger
         if ( prevState.status !== this.props.status ) {
             this.setState({
                 status: this.props.status
@@ -48,10 +48,10 @@ class ProfileStatus extends React.Component<PropsType, StateType> {
 
     render () {
         return (
-            <div>
+            <div className={classes.wrapper}>
                 {this.state.editMode ? 
 
-                    <div  onBlur={this.disableEditMode} onDoubleClick={ this.disableEditMode }>
+                    <div onBlur={this.disableEditMode} onDoubleClick={ this.disableEditMode }>
                         <input onChange={this.onStatusChange} autoFocus={true}  value={this.state.status}></input>
                     </div>
 
