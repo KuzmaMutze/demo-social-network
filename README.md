@@ -2,7 +2,7 @@
 
 Документацию о проекте буду дополнять
 
-Затестить: <a href="https://kuzmamutze.github.io/demo-social-network">CLICK</a>
+Затестить: <a href="https://kuzmamutze.github.io/social-network">CLICK</a>
 
 Можете воспользоваться тестовым аккаунтом для проверки моей работы:
 
